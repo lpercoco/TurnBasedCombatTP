@@ -9,15 +9,16 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+import entidades.Personaje;
 
 public class uiPersonajes {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField textNombre;
+	private JTextField textVida;
+	private JTextField textEnergia;
+	private JTextField textDefensa;
+	private JTextField textEvasion;
 
 	/**
 	 * Launch the application.
@@ -52,8 +53,8 @@ public class uiPersonajes {
 		
 		JLabel lblNombre = new JLabel("Nombre");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		textNombre = new JTextField();
+		textNombre.setColumns(10);
 		
 		JLabel label = new JLabel("");
 		
@@ -65,17 +66,17 @@ public class uiPersonajes {
 		
 		JLabel lblNewLabel_1 = new JLabel("Evasión");
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		textVida = new JTextField();
+		textVida.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		textEnergia = new JTextField();
+		textEnergia.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		textDefensa = new JTextField();
+		textDefensa.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
+		textEvasion = new JTextField();
+		textEvasion.setColumns(10);
 		
 		JButton btnAgregar = new JButton("Agregar");
 		
@@ -98,11 +99,11 @@ public class uiPersonajes {
 										.addComponent(lblNombre)
 										.addGap(68)
 										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
+											.addComponent(textVida, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addComponent(textEnergia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addComponent(textDefensa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addComponent(textEvasion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
 							.addGroup(groupLayout.createSequentialGroup()
 								.addContainerGap()
 								.addComponent(lblEnergia))
@@ -130,7 +131,7 @@ public class uiPersonajes {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(Alignment.TRAILING, groupLayout.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblNombre)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnBuscar)
 							.addGap(18)))
@@ -141,15 +142,15 @@ public class uiPersonajes {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblVida)
-								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(textVida, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblEnergia)
-								.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(textEnergia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNewLabel)
-								.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(textDefensa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(6)
 							.addComponent(btnAgregar)
@@ -160,9 +161,34 @@ public class uiPersonajes {
 					.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_1)
-						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textEvasion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(44, Short.MAX_VALUE))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}
+	
+	
+	public Personaje MapearDeFormulario(){
+		Personaje p = new Personaje();
+		p.setNombre(textNombre.getText());
+		p.setDefensa(Integer.parseInt(textDefensa.getText()));
+		p.setEnergia(Integer.parseInt(textEnergia.getText()));
+		p.setEvasion(Integer.parseInt(textEvasion.getText()));
+		p.setVida(Integer.parseInt(textVida.getText()));
+		
+		return p;
+	}
+	
+	public void MapearAformulario(Personaje p){
+		textNombre.setText(p.getNombre());
+		textDefensa.setText(Integer.toString(p.getDefensa()));
+		textEnergia.setText(Integer.toString(p.getEnergia()));
+		textVida.setText(Integer.toString(p.getVida()));
+		textEvasion.setText(Integer.toString(p.getEvasion()));
+		
+	}
+
+	
 }
+
+	
