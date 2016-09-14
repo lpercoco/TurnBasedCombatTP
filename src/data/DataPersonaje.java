@@ -15,7 +15,7 @@ public class DataPersonaje {
 		try {
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
 					"insert into personajes(nombre,vida,energia,evasion,defensa)"+
-					" values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+					" values(?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
 			// PreparedStatement.RETURN_GENERATED_KEYS to be able to retrieve id generated on the db
 			// by the autoincrement column. Otherwise don't use it
 						

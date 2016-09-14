@@ -10,6 +10,9 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import entidades.Personaje;
+import negocio.CtrlPersonajes;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class uiPersonajes {
 
@@ -19,6 +22,7 @@ public class uiPersonajes {
 	private JTextField textEnergia;
 	private JTextField textDefensa;
 	private JTextField textEvasion;
+	private CtrlPersonajes ctrlPersonajes;
 
 	/**
 	 * Launch the application.
@@ -41,6 +45,7 @@ public class uiPersonajes {
 	 */
 	public uiPersonajes() {
 		initialize();
+		ctrlPersonajes=new CtrlPersonajes();
 	}
 
 	/**
@@ -79,6 +84,14 @@ public class uiPersonajes {
 		textEvasion.setColumns(10);
 		
 		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Personaje p=new Personaje();
+				p=MapearDeFormulario();
+				ctrlPersonajes.add(p);
+				limpiarCampos();
+			}
+		});
 		
 		JButton btnModificar = new JButton("Modificar");
 		
@@ -187,7 +200,16 @@ public class uiPersonajes {
 		textEvasion.setText(Integer.toString(p.getEvasion()));
 		
 	}
-
+	
+ 
+	public void limpiarCampos(){
+		textNombre.setText(" ");
+		textDefensa.setText(" ");
+		textEnergia.setText(" ");
+		textVida.setText(" ");
+		textEvasion.setText(" ");
+		//falta limpiar puntos totales
+	}
 	
 }
 

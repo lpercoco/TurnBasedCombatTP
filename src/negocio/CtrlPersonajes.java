@@ -3,10 +3,10 @@ package negocio;
 import data.DataPersonaje;
 import entidades.Personaje;
 
-public class ctrlPersonajes {	
+public class CtrlPersonajes {	
 	private data.DataPersonaje dataP;
 	
-	public ctrlPersonajes(){
+	public CtrlPersonajes(){
 		dataP=new DataPersonaje();
 	}
 	
