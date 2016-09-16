@@ -15,7 +15,7 @@ import negocio.CtrlPersonajes;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class uiPersonajes {
+public class UiPersonajes {
 
 	private JFrame frame;
 	private JTextField textNombre;
@@ -32,7 +32,7 @@ public class uiPersonajes {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					uiPersonajes window = new uiPersonajes();
+					UiPersonajes window = new UiPersonajes();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,7 +44,7 @@ public class uiPersonajes {
 	/**
 	 * Create the application.
 	 */
-	public uiPersonajes() {
+	public UiPersonajes() {
 		initialize();
 		ctrlPersonajes=new CtrlPersonajes();
 	}
@@ -88,16 +88,7 @@ public class uiPersonajes {
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Personaje p=new Personaje();
-				if(datosValidos()){
-				p=MapearDeFormulario();
-				if(p.validarPuntosAsignados()){
-				ctrlPersonajes.add(p);
-				limpiarCampos();
-				}else{
-					notifyUser("Reingrese los puntos asignados, la suma total tiene que ser igual 200");
-				}
-				}
+				agregar();
 				
 			}
 		});
@@ -111,20 +102,16 @@ public class uiPersonajes {
 /*				Personaje p=new Personaje();
 				p=MapearDeFormulario();
 				ctrlPersonajes.delete(p);
-				limpiarCampos();	*/			
+				limpiarCampos();*/		
 			}
 		});
 		
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//metodo getByNombre enviandole el nombre o el objeto completo?
-				//si por objeto, hay que solucionar problema de "" de mapear
-/*				Personaje p=new Personaje();
-		        Personaje per=new Personaje();
-		        per=MapearDeFormulario();
-				p=ctrlPersonajes.getByNombre(per);
-				MapearAformulario(p);*/
+				
+				buscar();
+				
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -213,10 +200,10 @@ public class uiPersonajes {
 	public Personaje MapearDeFormulario(){
 		Personaje p = new Personaje();
 		p.setNombre(textNombre.getText());
-		p.setDefensa(Integer.parseInt(textDefensa.getText()));
-		p.setEnergia(Integer.parseInt(textEnergia.getText()));
-		p.setEvasion(Integer.parseInt(textEvasion.getText()));
-		p.setVida(Integer.parseInt(textVida.getText()));
+		if(textDefensa.getText().length()>0) {p.setDefensa(Integer.parseInt(textDefensa.getText()));} else p.setDefensa(0) ;
+		if(textEnergia.getText().length()>0) {p.setEnergia(Integer.parseInt(textEnergia.getText()));} else p.setEnergia(0);
+		if(textEvasion.getText().length()>0) {p.setEvasion(Integer.parseInt(textEvasion.getText()));} else p.setEvasion(0);
+		if(textVida.getText().length()>0)    {p.setVida(Integer.parseInt(textVida.getText()));      } else p.setVida(0);
 		
 		return p;
 	}
@@ -264,6 +251,26 @@ public class uiPersonajes {
 	private void notifyUser(String mensaje) {
 		JOptionPane.showMessageDialog(this.frame, mensaje);
     }
+
+	protected void agregar() {
+		Personaje p=new Personaje();
+		if(datosValidos()){
+		p=MapearDeFormulario();
+		if(p.validarPuntosAsignados()){
+		ctrlPersonajes.add(p);
+		limpiarCampos();
+		}else{
+			notifyUser("Reingrese los puntos asignados, la suma total tiene que ser 200");
+		}
+		}
+	}
+
+	protected void buscar() {
+		Personaje p=new Personaje();
+		p=ctrlPersonajes.getByNombre(MapearDeFormulario());
+		if(p!=null)MapearAformulario(p);
+		else notifyUser("Personaje no encontrado");
+	}
 	
 }
 

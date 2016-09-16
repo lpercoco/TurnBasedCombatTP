@@ -7,8 +7,10 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class uiMenu {
+public class UiMenu {
 
 	private JFrame frame;
 
@@ -19,7 +21,7 @@ public class uiMenu {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					uiMenu window = new uiMenu();
+					UiMenu window = new UiMenu();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,7 +33,7 @@ public class uiMenu {
 	/**
 	 * Create the application.
 	 */
-	public uiMenu() {
+	public UiMenu() {
 		initialize();
 	}
 
@@ -44,6 +46,10 @@ public class uiMenu {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton btnPersonajes = new JButton("Personajes");
+		btnPersonajes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		
 		JButton btnNuevaPartida = new JButton("Nueva Partida");
 		
