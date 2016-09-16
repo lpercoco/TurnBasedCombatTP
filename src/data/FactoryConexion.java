@@ -34,8 +34,6 @@ public class FactoryConexion {
 		}
 		return instancia;
 	}
-	//hay que solucionar problema conexion
-	//"Establishing SSL connection without server's identity verification is not recommended."
 	public Connection getConn(){
 		try {
 			if(conn==null || conn.isClosed()){

@@ -59,16 +59,20 @@ public class DataPersonaje {
 		try {
 			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
 					"update personajes set nombre=?,vida=?,energia=?,evasion=?,defensa=?"+
-					" where id=?");
+					" where nombre=?");
 
 			stmt.setString(1,p.getNombre());
 			stmt.setInt(2,p.getVida());
 			stmt.setInt(3,p.getEnergia());
 			stmt.setInt(4,p.getEvasion());
 			stmt.setInt(5,p.getDefensa());
-			stmt.setInt(6,p.getCodigo());
-			stmt.execute();
+			stmt.setString(6,p.getNombre());
+			int filas=stmt.executeUpdate();
 			
+		
+			if (filas==0){
+				throw DataException("Personaje inexistente");
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -95,8 +99,8 @@ public class DataPersonaje {
 		
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"delete from personajes where codigo=?");
-			stmt.setInt(1, p.getCodigo());
+					"delete from personajes where nombre=?");
+			stmt.setString(1, p.getNombre());
 			stmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

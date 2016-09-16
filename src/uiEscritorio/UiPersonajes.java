@@ -94,15 +94,17 @@ public class UiPersonajes {
 		});
 		
 		JButton btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				modificar();
+			}
+		});
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// misma duda busqueda
-/*				Personaje p=new Personaje();
-				p=MapearDeFormulario();
-				ctrlPersonajes.delete(p);
-				limpiarCampos();*/		
+				
+			    eliminar();
 			}
 		});
 		
@@ -197,6 +199,17 @@ public class UiPersonajes {
 	}
 	
 	
+	protected void modificar() {
+		Personaje p = new Personaje();
+		if(datosValidos()){
+			p=MapearDeFormulario();
+			if(p.validarPuntosAsignados()){
+		    ctrlPersonajes.update(p);
+			limpiarCampos();}
+			}
+		else notifyUser("no se pudo modificar");
+		}
+			
 	public Personaje MapearDeFormulario(){
 		Personaje p = new Personaje();
 		p.setNombre(textNombre.getText());
@@ -270,6 +283,11 @@ public class UiPersonajes {
 		p=ctrlPersonajes.getByNombre(MapearDeFormulario());
 		if(p!=null)MapearAformulario(p);
 		else notifyUser("Personaje no encontrado");
+	}
+
+	protected void eliminar() {
+		ctrlPersonajes.delete(MapearDeFormulario());
+		limpiarCampos();
 	}
 	
 }
