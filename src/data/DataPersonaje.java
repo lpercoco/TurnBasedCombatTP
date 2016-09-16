@@ -118,6 +118,7 @@ public class DataPersonaje {
 		}
 		
 }
+
 	public Personaje getByNombre(Personaje per){
 		Personaje p=null;
 		

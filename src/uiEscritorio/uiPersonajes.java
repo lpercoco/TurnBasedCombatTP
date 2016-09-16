@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
@@ -86,18 +87,46 @@ public class uiPersonajes {
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				Personaje p=new Personaje();
+				if(datosValidos()){
 				p=MapearDeFormulario();
+				if(p.validarPuntosAsignados()){
 				ctrlPersonajes.add(p);
 				limpiarCampos();
+				}else{
+					notifyUser("Reingrese los puntos asignados, la suma total tiene que ser igual 200");
+				}
+				}
+				
 			}
 		});
 		
 		JButton btnModificar = new JButton("Modificar");
 		
 		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// misma duda busqueda
+/*				Personaje p=new Personaje();
+				p=MapearDeFormulario();
+				ctrlPersonajes.delete(p);
+				limpiarCampos();	*/			
+			}
+		});
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//metodo getByNombre enviandole el nombre o el objeto completo?
+				//si por objeto, hay que solucionar problema de "" de mapear
+/*				Personaje p=new Personaje();
+		        Personaje per=new Personaje();
+		        per=MapearDeFormulario();
+				p=ctrlPersonajes.getByNombre(per);
+				MapearAformulario(p);*/
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -197,19 +226,44 @@ public class uiPersonajes {
 		textDefensa.setText(Integer.toString(p.getDefensa()));
 		textEnergia.setText(Integer.toString(p.getEnergia()));
 		textVida.setText(Integer.toString(p.getVida()));
-		textEvasion.setText(Integer.toString(p.getEvasion()));
-		
+		textEvasion.setText(Integer.toString(p.getEvasion()));		
 	}
 	
  
 	public void limpiarCampos(){
-		textNombre.setText(" ");
-		textDefensa.setText(" ");
-		textEnergia.setText(" ");
-		textVida.setText(" ");
-		textEvasion.setText(" ");
+		textNombre.setText("");
+		textDefensa.setText("");
+		textEnergia.setText("");
+		textVida.setText("");
+		textEvasion.setText("");
 		//falta limpiar puntos totales
 	}
+	
+	//valida que los datos ingresados esten completos y que se ingresen numeros enteros sin , o .
+	public boolean datosValidos(){
+		boolean valido=true;
+		if(textNombre.getText().trim().length()==0
+		   ||textDefensa.getText().trim().length()==0	
+		   ||textEnergia.getText().trim().length()==0
+		   ||textVida.getText().trim().length()==0
+		   ||textEvasion.getText().trim().length()==0){
+			valido=false;
+			notifyUser("Complete los campos faltantes");
+		}
+
+		if(valido && (!textDefensa.getText().matches("[0-9]*")
+		   || !textEnergia.getText().matches("[0-9]*")
+		   || !textVida.getText().matches("[0-9]*")
+		   || !textEvasion.getText().matches("[0-9]*"))){
+			valido=false;
+			notifyUser("Reingrese los puntos asignados, solamente se aceptan numeros enteros");
+		}
+		return valido;
+	}
+	
+	private void notifyUser(String mensaje) {
+		JOptionPane.showMessageDialog(this.frame, mensaje);
+    }
 	
 }
 
