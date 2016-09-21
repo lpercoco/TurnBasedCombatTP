@@ -54,13 +54,14 @@ public class Personaje {
 	}
 
 	//valida que la suma total de los puntos del personaje sea la correcta
-	//es necesario validar un tope minimo o maximo en alguno de los atributos?
+	//evasion <=80
+	//defensa <=20
 	public boolean validarPuntosAsignados() {
 		boolean rta;
 		int aux;
 		aux=defensa+vida+energia+evasion;
 		//remplazar el 200 por una variable?
-		if (aux==200) {
+		if (aux<=200) {
 			rta=true;
 		} else {
 			rta=false;
@@ -68,5 +69,10 @@ public class Personaje {
 		}
 		return rta;
 	}
+	
+
+	public boolean equals(String nombre){
+		return  (nombre == this.getNombre());
+}
 
 }

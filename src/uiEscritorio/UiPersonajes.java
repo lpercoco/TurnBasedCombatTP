@@ -273,7 +273,7 @@ public class UiPersonajes {
 		ctrlPersonajes.add(p);
 		limpiarCampos();
 		}else{
-			notifyUser("Reingrese los puntos asignados, la suma total tiene que ser 200");
+			notifyUser("Reingrese los puntos asignados, la suma total tiene que ser menor o igual a 200");
 		}
 		}
 	}
@@ -292,4 +292,8 @@ public class UiPersonajes {
 	
 }
 
+//falta manejar: agregacion de un personaje que ya existe
+//               solamente se puede modificar los puntos asignados
+//               mostrar puntos totales en la interfaz
+//               
 	
