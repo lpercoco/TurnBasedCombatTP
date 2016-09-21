@@ -8,25 +8,53 @@ import entidades.Personaje;
 public class CtrlCombate {
 
 	private data.DataPersonaje dataP;
+	private int turno;
 	
 	public CtrlCombate(){
 		dataP=new DataPersonaje();
+		turno=0;
 	}
 	
-/*	Defensa:
-	    Si el jugador opta por defender no podrá atacar en dicho turno, 
-	    pero a cambio de ello el personaje recuperará un porcentaje de la energía y 
-	    de la vida que tenía al comenzar el juego. Calculado de la siguiente forma:
-	        energiaARecupearar = energiaOriginal * defensa / 100
-	        vidaARecuperar = vidaOriginal * defensa / 250
-	    Los puntos de vida o energia recueperados se sumaran 
-	    pero no podrán superar los valores originales del comienzo de la partida.
-*/
+
     public ArrayList<Personaje> getPersonajesRegistrados(){
     	return (dataP.GetPersonajesRegistrados());
     }
-	public void defensa(){
-		
+    
+    public void getNuevoTurno(){
+    	    
+        switch (turno) {
+		case 0: generarPrimerTurnoAleatorio();break;
+		case 1: turno=2;break;
+		case 2: turno=1;break;
+        }
+    }
+    	
+	public int getTurno() {
+		return turno;
 	}
+
+	public void generarPrimerTurnoAleatorio() {
+		double numeroAleatorio;
+		do {
+    		numeroAleatorio=Math.random();
+    		
+			if (numeroAleatorio > 0.5) {
+				turno = 2;
+			} else {
+				turno = 1;
+			} 
+		} while (numeroAleatorio==0.5);
+	}
+    
+    public void ataque(int nroJTurno, Personaje j1, Personaje j2, int puntosAtaque){
+    	if (nroJTurno==1) {
+    		j1.ataca(j2, puntosAtaque);
+			
+		} else {
+			j2.ataca(j1, puntosAtaque);
+
+		}
+    	
+    }
 	
 }

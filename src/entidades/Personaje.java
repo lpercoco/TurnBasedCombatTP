@@ -54,6 +54,7 @@ public class Personaje {
 	}
 
 	//valida que la suma total de los puntos del personaje sea la correcta
+	//faltan dos validaciones
 	//evasion <=80
 	//defensa <=20
 	public boolean validarPuntosAsignados() {
@@ -74,5 +75,18 @@ public class Personaje {
 	public boolean equals(String nombre){
 		return  (nombre == this.getNombre());
 }
+	//hay que validar que puntosAtaque no supere la energia del j atacante
+	
+	public void ataca(Personaje pAtacado,int puntosAtaque){
+		double numAleatorio=Math.random();
+		
+		//descuenta la energia del atacante, ya sea que el atacado evada o no
+		this.energia=this.energia-puntosAtaque;
+		
+		//evalua evasion y descuenta vida en el atacado
+		if (!((numAleatorio*100)>pAtacado.getEvasion())) {
+			pAtacado.vida=pAtacado.vida-puntosAtaque;
+		} 		
+	}
 
 }
