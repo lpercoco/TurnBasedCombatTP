@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -43,7 +44,6 @@ public class UiCombate {
 	private JTextField textFieldPuntosAtaque;
 	private Personaje j1;
 	private Personaje j2;
-	private int nroJTurno;
 	
 	/**
 	 * Launch the application.
@@ -149,8 +149,9 @@ public class UiCombate {
 			public void actionPerformed(ActionEvent e) {
 				//validar que los jugadores no sean los mismos
 				//definir quien juega primero atraves de getPrimerTurno()
-				
+				nuevaPartida();	
 			}
+
 		});
 		
 		JLabel lblTurnoJugador = new JLabel("TURNO JUGADOR:");
@@ -162,9 +163,7 @@ public class UiCombate {
 		JButton btnAtacar = new JButton("ATACAR");
 		btnAtacar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-// codigo ataque
 				atacar();
-		
 			}
 		});
 		
@@ -172,6 +171,11 @@ public class UiCombate {
 		textFieldPuntosAtaque.setColumns(10);
 		
 		JButton btnDefender = new JButton("DEFENDER");
+		btnDefender.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				defender();
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -310,7 +314,8 @@ public class UiCombate {
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}
-	
+		
+
 	protected void llenarComboBox(){
 		    personajesRegistrados = ctrlCombate.getPersonajesRegistrados(); 
 		    for(int i=0; i<personajesRegistrados.size();i++){
@@ -350,11 +355,55 @@ public class UiCombate {
 		textFieldEvasionJ2.setText(Integer.toString(j2.getEvasion()));
 		
 	}
-
-	//hay que validar los puntos de ataque, que sean un numero entero y menor que la energia del atacante
+	
+    //falta validar puntos ataque>energia
+	//falta validar que para atacar  primero se haya generado una nueva partida
 	protected void atacar(){
-		ctrlCombate.ataque(nroJTurno,j1,j2,Integer.parseInt((textFieldPuntosAtaque.getText())));		
+		if (validarCampoPuntosAtaque()){
+		 ctrlCombate.ataque(ctrlCombate.getTurno(),j1,j2,Integer.parseInt((textFieldPuntosAtaque.getText())));	
+		 mostrarAtributosJugadorSeleccionadoJ1();
+		 mostrarAtributosJugadorSeleccionadoJ2();
+		 textFieldTurnoPersonaje.setText(Integer.toString(ctrlCombate.getTurno()));
+		} else {
+		 	notifyUser("Ingrese un numero entero mayor a 0 para el ataque");
+		}
+		textFieldPuntosAtaque.setText("");
 	}
+	
+	protected boolean validarCampoPuntosAtaque(){		
+		//valida que se haya ingresado los puntos, que sea numero entero y mayor a 0
+		if (       (textFieldPuntosAtaque.getText().length()>0) 
+				&& (textFieldPuntosAtaque.getText()).matches("[0-9]*") 
+				&& (Integer.parseInt(textFieldPuntosAtaque.getText())>0)) {
+			return true;
+		} else {
+			 return false;
+		}
+	}
+	
+	private void notifyUser(String mensaje) {
+		JOptionPane.showMessageDialog(this.frame, mensaje);
+    }
+	
+	protected void nuevaPartida() {
+		ctrlCombate.setTurno(0);
+		
+		if(!j1.equals(j2)){
+			ctrlCombate.generarNuevoTurno();
+			textFieldTurnoPersonaje.setText(Integer.toString(ctrlCombate.getTurno()));
+		} else {
+			notifyUser("Ingrese dos personajes distintos para una nueva partida");
+		}	
+	}
+	
+	protected void defender() {
+		switch (ctrlCombate.getTurno()) {
+		case 0: notifyUser("Primero es necesario generar una nueva partida");break;
+		case 1:ctrlCombate.defensa(j1);mostrarAtributosJugadorSeleccionadoJ1();textFieldTurnoPersonaje.setText(Integer.toString(ctrlCombate.getTurno()));break;
+		case 2:ctrlCombate.defensa(j2);mostrarAtributosJugadorSeleccionadoJ1();textFieldTurnoPersonaje.setText(Integer.toString(ctrlCombate.getTurno()));break;
+		}
+	}
+	
 }
 
 

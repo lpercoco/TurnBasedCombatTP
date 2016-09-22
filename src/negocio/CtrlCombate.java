@@ -20,7 +20,7 @@ public class CtrlCombate {
     	return (dataP.GetPersonajesRegistrados());
     }
     
-    public void getNuevoTurno(){
+    public void generarNuevoTurno(){
     	    
         switch (turno) {
 		case 0: generarPrimerTurnoAleatorio();break;
@@ -32,6 +32,11 @@ public class CtrlCombate {
 	public int getTurno() {
 		return turno;
 	}
+
+	public void setTurno(int turno) {
+		this.turno = turno;
+	}
+
 
 	public void generarPrimerTurnoAleatorio() {
 		double numeroAleatorio;
@@ -54,7 +59,13 @@ public class CtrlCombate {
 			j2.ataca(j1, puntosAtaque);
 
 		}
-    	
+    	generarNuevoTurno();
+    }
+    
+    public void defensa(Personaje j){
+    	Personaje jOriginal = dataP.getByNombre(j);
+    	j.defiende(jOriginal.getVida(),jOriginal.getEnergia());
+    	generarNuevoTurno();
     }
 	
 }

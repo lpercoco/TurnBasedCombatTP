@@ -54,6 +54,7 @@ public class Personaje {
 	}
 
 	//valida que la suma total de los puntos del personaje sea la correcta
+	
 	//faltan dos validaciones
 	//evasion <=80
 	//defensa <=20
@@ -75,6 +76,7 @@ public class Personaje {
 	public boolean equals(String nombre){
 		return  (nombre == this.getNombre());
 }
+	
 	//hay que validar que puntosAtaque no supere la energia del j atacante
 	
 	public void ataca(Personaje pAtacado,int puntosAtaque){
@@ -88,5 +90,21 @@ public class Personaje {
 			pAtacado.vida=pAtacado.vida-puntosAtaque;
 		} 		
 	}
-
+	
+	public void defiende(int vidaOriginal, int energiaOriginal){
+		
+		if(this.vida+(vidaOriginal*this.defensa/250)<vidaOriginal){
+		this.vida=this.vida+(vidaOriginal*this.defensa/250);
+		}else
+		{
+			this.vida=vidaOriginal;
+		}
+		
+		if(this.energia+(energiaOriginal*defensa/100)<energiaOriginal){
+		this.energia=this.energia+(energiaOriginal*defensa/100);
+		}else{
+			this.energia=energiaOriginal;
+		}		
+	}
+	
 }
