@@ -24,6 +24,8 @@ public class UiPersonajes {
 	private JTextField textDefensa;
 	private JTextField textEvasion;
 	private CtrlPersonajes ctrlPersonajes;
+	private JTextField textPuntosTotales;
+	private JTextField textPuntosSinAsignar;
 
 	/**
 	 * Launch the application.
@@ -116,37 +118,39 @@ public class UiPersonajes {
 				
 			}
 		});
+		
+		JLabel lblPuntosTotales = new JLabel("Puntos Totales");
+		
+		textPuntosTotales = new JTextField();
+		textPuntosTotales.setEditable(false);
+		textPuntosTotales.setColumns(10);
+		
+		JLabel lblPuntosSinAsignar = new JLabel("Puntos sin asignar");
+		
+		textPuntosSinAsignar = new JTextField();
+		textPuntosSinAsignar.setEditable(false);
+		textPuntosSinAsignar.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addComponent(label)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(lblNombre)
-										.addGap(68)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addComponent(textVida, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addComponent(textEnergia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addComponent(textDefensa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addComponent(textEvasion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
-							.addGroup(groupLayout.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(lblEnergia))
-							.addGroup(groupLayout.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(lblVida)))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblNewLabel))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblNewLabel_1)))
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(label)
+						.addComponent(lblEnergia)
+						.addComponent(lblVida)
+						.addComponent(lblNewLabel)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNombre)
+								.addComponent(lblNewLabel_1))
+							.addGap(68)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(textEvasion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textVida, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textEnergia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textDefensa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
 					.addGap(40)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(btnModificar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -154,16 +158,28 @@ public class UiPersonajes {
 						.addComponent(btnAgregar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnEliminar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(68))
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblPuntosTotales)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(textPuntosTotales, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(201, Short.MAX_VALUE))
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblPuntosSinAsignar)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(textPuntosSinAsignar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(181, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(43)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblNombre)
 							.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnBuscar)
 							.addGap(18)))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -181,7 +197,11 @@ public class UiPersonajes {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNewLabel)
-								.addComponent(textDefensa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(textDefensa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNewLabel_1)
+								.addComponent(textEvasion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(6)
 							.addComponent(btnAgregar)
@@ -189,11 +209,15 @@ public class UiPersonajes {
 							.addComponent(btnEliminar)
 							.addGap(18)
 							.addComponent(btnModificar)))
-					.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_1)
-						.addComponent(textEvasion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(44, Short.MAX_VALUE))
+						.addComponent(lblPuntosTotales)
+						.addComponent(textPuntosTotales, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPuntosSinAsignar)
+						.addComponent(textPuntosSinAsignar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}
@@ -226,7 +250,8 @@ public class UiPersonajes {
 		textDefensa.setText(Integer.toString(p.getDefensa()));
 		textEnergia.setText(Integer.toString(p.getEnergia()));
 		textVida.setText(Integer.toString(p.getVida()));
-		textEvasion.setText(Integer.toString(p.getEvasion()));		
+		textEvasion.setText(Integer.toString(p.getEvasion()));
+		textPuntosTotales.setText(Integer.toString(p.getPuntosTotales()));
 	}
 	
  
@@ -236,8 +261,9 @@ public class UiPersonajes {
 		textEnergia.setText("");
 		textVida.setText("");
 		textEvasion.setText("");
-		//falta limpiar puntos totales
+		textPuntosTotales.setText("");
 	}
+			
 	
 	//valida que los datos ingresados esten completos y que se ingresen numeros enteros sin , o .
 	public boolean datosValidos(){
@@ -291,9 +317,5 @@ public class UiPersonajes {
 	}
 	
 }
-
-//falta manejar: agregacion de un personaje que ya existe
-//               solamente se puede modificar los puntos asignados
-//               mostrar puntos totales en la interfaz
-//               
+        
 	

@@ -60,18 +60,17 @@ public class DataPersonaje {
 		
 		try {
 			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
-					"update personajes set nombre=?,vida=?,energia=?,evasion=?,defensa=?"+
+					"update personajes set vida=?,energia=?,evasion=?,defensa=?"+
 					" where nombre=?");
 
-			stmt.setString(1,p.getNombre());
-			stmt.setInt(2,p.getVida());
-			stmt.setInt(3,p.getEnergia());
-			stmt.setInt(4,p.getEvasion());
-			stmt.setInt(5,p.getDefensa());
-			stmt.setString(6,p.getNombre());
-/*			int filas=stmt.executeUpdate();
-			
-		
+			stmt.setInt(1,p.getVida());
+			stmt.setInt(2,p.getEnergia());
+			stmt.setInt(3,p.getEvasion());
+			stmt.setInt(4,p.getDefensa());
+			stmt.setString(5,p.getNombre());
+            stmt.executeUpdate();
+			/*
+		     
 			if (filas==0){
 				throw DataException("Personaje inexistente");
 			}*/
