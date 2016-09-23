@@ -51,14 +51,28 @@ public class CtrlCombate {
 		} while (numeroAleatorio==0.5);
 	}
     
-    public void ataque(int nroJTurno, Personaje j1, Personaje j2, int puntosAtaque){
-    	if (nroJTurno==1) {
-    		j1.ataca(j2, puntosAtaque);
-			
-		} else {
-			j2.ataca(j1, puntosAtaque);
+    public void ataque(Personaje j1, Personaje j2, int puntosAtaque){
 
+    	switch (turno) {
+    	
+		case 1:{
+			j1.ataca(j2, puntosAtaque);
+			if(j2.getVida()==0){
+				j1.aumentaPuntosTotales();
+				//fin partida
+				j1.recuperacion();
+			}	
+		break;}
+		
+		case 2:{
+			j2.ataca(j1, puntosAtaque);
+			if(j1.getVida()==0){
+				j2.aumentaPuntosTotales();
+				//fin partida
+			}	
+		break;}
 		}
+    	
     	generarNuevoTurno();
     }
     
@@ -68,4 +82,6 @@ public class CtrlCombate {
     	generarNuevoTurno();
     }
 	
+    
+    
 }

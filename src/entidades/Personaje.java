@@ -10,6 +10,15 @@ public class Personaje {
 	private int evasion;
 	private int puntosTotales;
 	
+	
+	public Personaje(){
+		this.vida=0;
+		this.defensa=0;
+		this.energia=0;
+		this.evasion=0;
+		this.puntosTotales=200;
+	}
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -53,17 +62,17 @@ public class Personaje {
 		this.puntosTotales = puntosTotales;
 	}
 
-	//valida que la suma total de los puntos del personaje sea la correcta
-	
-	//faltan dos validaciones
+	//valida que la suma total de los puntos del personaje sea la correcta y
 	//evasion <=80
 	//defensa <=20
+    //se puede mejorar?
 	public boolean validarPuntosAsignados() {
 		boolean rta;
 		int aux;
+		
 		aux=defensa+vida+energia+evasion;
-		//remplazar el 200 por una variable?
-		if (aux<=200) {
+		
+		if (aux<=puntosTotales && evasion<=80 && defensa<=20) {
 			rta=true;
 		} else {
 			rta=false;
@@ -85,21 +94,27 @@ public class Personaje {
 		//descuenta la energia del atacante, ya sea que el atacado evada o no
 		this.energia=this.energia-puntosAtaque;
 		
-		//evalua evasion y descuenta vida en el atacado
+		//evalua evasion
+		//se puede mejorar?
 		if (!((numAleatorio*100)>pAtacado.getEvasion())) {
-			pAtacado.vida=pAtacado.vida-puntosAtaque;
+			//disminuye vida del atacado, si el ataque supera la vida.. asigna 0 vida
+			if(pAtacado.vida-puntosAtaque>0){
+				pAtacado.vida=pAtacado.vida-puntosAtaque;
+			} else{
+				pAtacado.vida=0;
+			}
 		} 		
 	}
 	
 	public void defiende(int vidaOriginal, int energiaOriginal){
-		
+		//la vida actual + la vida recuperada no puede superar la vida original
 		if(this.vida+(vidaOriginal*this.defensa/250)<vidaOriginal){
 		this.vida=this.vida+(vidaOriginal*this.defensa/250);
 		}else
 		{
 			this.vida=vidaOriginal;
 		}
-		
+		//la energia actual + la energia recuperada no puede superar la energia original
 		if(this.energia+(energiaOriginal*defensa/100)<energiaOriginal){
 		this.energia=this.energia+(energiaOriginal*defensa/100);
 		}else{
@@ -107,4 +122,11 @@ public class Personaje {
 		}		
 	}
 	
+	public void aumentaPuntosTotales(){
+		this.puntosTotales=+10;
+	}
+
+	public void recuperacion() {
+
+	}
 }

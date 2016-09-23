@@ -147,8 +147,6 @@ public class UiCombate {
 		JButton btnNuevaPartida = new JButton("NUEVA PARTIDA");
 		btnNuevaPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//validar que los jugadores no sean los mismos
-				//definir quien juega primero atraves de getPrimerTurno()
 				nuevaPartida();	
 			}
 
@@ -325,6 +323,7 @@ public class UiCombate {
 		    }
 	}
 	
+	// cambiar que reciba un string, recibir un personaje con ese nombre?
 	protected Personaje getJugadorSeleccionado(String nombre){
         Personaje resultado = null;
 		for (Personaje personaje : personajesRegistrados) {
@@ -360,7 +359,7 @@ public class UiCombate {
 	//falta validar que para atacar  primero se haya generado una nueva partida
 	protected void atacar(){
 		if (validarCampoPuntosAtaque()){
-		 ctrlCombate.ataque(ctrlCombate.getTurno(),j1,j2,Integer.parseInt((textFieldPuntosAtaque.getText())));	
+		 ctrlCombate.ataque(j1,j2,Integer.parseInt((textFieldPuntosAtaque.getText())));	
 		 mostrarAtributosJugadorSeleccionadoJ1();
 		 mostrarAtributosJugadorSeleccionadoJ2();
 		 textFieldTurnoPersonaje.setText(Integer.toString(ctrlCombate.getTurno()));
@@ -381,10 +380,12 @@ public class UiCombate {
 		}
 	}
 	
+	//muestra mensaje
 	private void notifyUser(String mensaje) {
 		JOptionPane.showMessageDialog(this.frame, mensaje);
     }
 	
+	//genera el primer turno aleatorio y controla que los dos jugadores sean distintos
 	protected void nuevaPartida() {
 		ctrlCombate.setTurno(0);
 		
