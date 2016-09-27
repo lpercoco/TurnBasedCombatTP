@@ -7,12 +7,9 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import entidades.Personaje;
-
-import java.util.ArrayList;
 
 import negocio.*;
 import javax.swing.JTextField;
@@ -25,9 +22,6 @@ public class UiCombate {
    
 	private JFrame frame;
 	private CtrlCombate ctrlCombate;
-	private JComboBox<String> comboBoxJ1;
-	private ArrayList<Personaje> personajesRegistrados;
-	private JComboBox<String> comboBoxJ2;
 	private JTextField textFieldVidaJ1;
 	private JTextField textFieldEnergiaJ1;
 	private JTextField textFieldDefensaJ1;
@@ -36,14 +30,11 @@ public class UiCombate {
 	private JTextField textFieldEnergiaJ2;
 	private JTextField textFieldDefensaJ2;
 	private JTextField textFieldEvasionJ2;
-	private JLabel lblVida_1;    //
-	private JLabel lblEnergia_1; //
-	private JLabel lblNewLabel; //
-	private JLabel lblEvasion_1;// estos van?
 	private JTextField textFieldTurnoPersonaje;
 	private JTextField textFieldPuntosAtaque;
-	private Personaje j1;
-	private Personaje j2;
+	private JTextField textFieldNombreJ1;
+	private JTextField textFieldNombreJ2;
+
 	
 	/**
 	 * Launch the application.
@@ -67,7 +58,6 @@ public class UiCombate {
 	public UiCombate() {
 		initialize();
 		ctrlCombate=new CtrlCombate();
-		llenarComboBox();
 	}
 
 	/**
@@ -75,24 +65,10 @@ public class UiCombate {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 692, 300);
+		frame.setBounds(100, 100, 851, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblJugad = new JLabel("Jugador 1");
-		
-		comboBoxJ1 = new JComboBox<String>();
-		comboBoxJ1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				mostrarAtributosJugadorSeleccionadoJ1();
-			}
-		});
-		
-		comboBoxJ2 = new JComboBox<String>();
-		comboBoxJ2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				mostrarAtributosJugadorSeleccionadoJ2();
-			}
-		});
 		
 		JLabel lblJugador = new JLabel("Jugador 2");
 		
@@ -136,13 +112,13 @@ public class UiCombate {
 		textFieldEvasionJ2.setEditable(false);
 		textFieldEvasionJ2.setColumns(10);
 		
-		lblVida_1 = new JLabel("VIDA");
+		JLabel lblVida_1 = new JLabel("VIDA");
 		
-		lblEnergia_1 = new JLabel("ENERGIA");
+		JLabel lblEnergia_1 = new JLabel("ENERGIA");
 		
-		lblNewLabel = new JLabel("DEFENSA");
+		JLabel lblDefensa_1 = new JLabel("DEFENSA");
 		
-		lblEvasion_1 = new JLabel("EVASION");
+		JLabel lblEvasion_1 = new JLabel("EVASION");
 		
 		JButton btnNuevaPartida = new JButton("NUEVA PARTIDA");
 		btnNuevaPartida.addActionListener(new ActionListener() {
@@ -171,209 +147,260 @@ public class UiCombate {
 		JButton btnDefender = new JButton("DEFENDER");
 		btnDefender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				defender();
+				//defender();
+			}
+		});
+		
+		JLabel lblNombre = new JLabel("NOMBRE");
+		
+		textFieldNombreJ1 = new JTextField();
+		textFieldNombreJ1.setColumns(10);
+		
+		JButton btnBuscarJ1 = new JButton("BUSCAR");
+		btnBuscarJ1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				seleccionarJugador1();
+			}
+		});
+		
+		JLabel lblNombre_1 = new JLabel("NOMBRE");
+		
+		textFieldNombreJ2 = new JTextField();
+		textFieldNombreJ2.setColumns(10);
+		
+		JButton btnBuscarJ2 = new JButton("BUSCAR");
+		btnBuscarJ2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				seleccionarJugador2();
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(lblJugad, Alignment.LEADING)
-								.addComponent(comboBoxJ1, Alignment.LEADING, 0, 138, Short.MAX_VALUE))
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(lblDefensa)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(textFieldDefensaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(lblEvasion)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(textFieldEvasionJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblEnergia)
-								.addComponent(lblVida))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(textFieldVidaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textFieldEnergiaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(258)
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addComponent(lblNewLabel)
-										.addComponent(lblEvasion_1)))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(73)
-									.addComponent(btnNuevaPartida))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(18)
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(btnAtacar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(btnDefender, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-									.addGap(25)
-									.addComponent(textFieldPuntosAtaque, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)))
-							.addGap(12)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addGap(12)
-										.addComponent(textFieldEvasionJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-									.addComponent(textFieldDefensaJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblJugador))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(lblVida_1)
-											.addGap(31))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(lblEnergia_1)
-											.addPreferredGap(ComponentPlacement.RELATED)))
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(textFieldVidaJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(textFieldEnergiaJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-							.addContainerGap())
+										.addComponent(lblJugad)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(lblDefensa)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(textFieldDefensaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(lblNombre)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(textFieldNombreJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(lblVida)
+											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(textFieldVidaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnBuscarJ1)
+									.addGap(20)
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(lblTurnoJugador)
+												.addPreferredGap(ComponentPlacement.UNRELATED)
+												.addComponent(textFieldTurnoPersonaje, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+												.addGap(26))
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(btnAtacar, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(textFieldPuntosAtaque, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+												.addGap(57)))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(btnNuevaPartida)
+											.addGap(83))))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblEvasion)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(textFieldEvasionJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addPreferredGap(ComponentPlacement.RELATED))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(36)
-							.addComponent(lblTurnoJugador)
+							.addComponent(lblEnergia)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textFieldTurnoPersonaje, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
-							.addComponent(comboBoxJ2, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-							.addGap(87))))
+							.addComponent(textFieldEnergiaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+							.addComponent(btnDefender)
+							.addGap(130)))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+									.addComponent(lblDefensa_1)
+									.addComponent(lblEvasion_1)
+									.addComponent(lblEnergia_1)
+									.addComponent(lblVida_1))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addComponent(textFieldEnergiaJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(textFieldDefensaJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(textFieldEvasionJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(textFieldVidaJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(43))
+							.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(lblJugador)
+								.addGap(56)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblNombre_1)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textFieldNombreJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnBuscarJ2)))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblJugad)
-								.addComponent(lblJugador))
+								.addComponent(lblJugador)
+								.addComponent(btnNuevaPartida))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textFieldTurnoPersonaje, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTurnoJugador)
+								.addComponent(lblNombre_1)
+								.addComponent(textFieldNombreJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblJugad)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(comboBoxJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(comboBoxJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(6)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNombre)
+								.addComponent(textFieldNombreJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnBuscarJ1))))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+									.addComponent(lblVida_1)
+									.addComponent(textFieldVidaJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.UNRELATED))
+							.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(lblVida)
+								.addGap(18))
+							.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(textFieldVidaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGap(18))
+							.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(btnAtacar)
+								.addGap(18)))
+						.addComponent(textFieldPuntosAtaque, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(6)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblEnergia_1)
+										.addComponent(textFieldEnergiaJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblVida)
-										.addComponent(textFieldVidaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addComponent(lblDefensa_1)
+										.addComponent(textFieldDefensaJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(12))
+								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 										.addComponent(lblEnergia)
 										.addComponent(textFieldEnergiaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+									.addGap(18)
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 										.addComponent(lblDefensa)
-										.addComponent(textFieldDefensaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-									.addGap(16)
-									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblEvasion)
-										.addComponent(textFieldEvasionJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(22)
-									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(textFieldVidaJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblVida_1))
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(textFieldEnergiaJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblEnergia_1))
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(textFieldDefensaJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblNewLabel))
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(textFieldEvasionJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblEvasion_1)))))
+										.addComponent(textFieldDefensaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+							.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblEvasion)
+								.addComponent(textFieldEvasionJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblEvasion_1)
+								.addComponent(textFieldEvasionJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(40))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnNuevaPartida)
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblTurnoJugador)
-								.addComponent(textFieldTurnoPersonaje, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnAtacar)
-								.addComponent(textFieldPuntosAtaque, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnDefender)))
-					.addContainerGap(80, Short.MAX_VALUE))
+							.addGap(14)
+							.addComponent(btnDefender)
+							.addContainerGap())))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(61, Short.MAX_VALUE)
+					.addComponent(btnBuscarJ2)
+					.addGap(185))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}
 		
+	//falta considerar  caso que no exista el jugador
+	//si no existe limpiar campos
+	protected void seleccionarJugador1() {
+		Personaje p=ctrlCombate.getByNombre(textFieldNombreJ1.getText());
+		mostrarAtributosJugadorSeleccionadoJ1(p);
+		setJugadorSeleccionado1(p);
+	}
+	
+	//falta considerar  caso que no exista el jugador
+	//si no existe limpiar campos
+	protected void seleccionarJugador2() {
+		Personaje p=ctrlCombate.getByNombre(textFieldNombreJ2.getText());
+		mostrarAtributosJugadorSeleccionadoJ2(p);
+		setJugadorSeleccionado2(p);
+	}
 
-	protected void llenarComboBox(){
-		    personajesRegistrados = ctrlCombate.getPersonajesRegistrados(); 
-		    for(int i=0; i<personajesRegistrados.size();i++){
-		        comboBoxJ1.addItem(personajesRegistrados.get(i).getNombre());
-		        comboBoxJ2.addItem(personajesRegistrados.get(i).getNombre());
-		    	
-		    }
+
+	protected void setJugadorSeleccionado1(Personaje p){
+        ctrlCombate.setJugador1(p);
 	}
 	
-	// cambiar que reciba un string, recibir un personaje con ese nombre?
-	protected Personaje getJugadorSeleccionado(String nombre){
-        Personaje resultado = null;
-		for (Personaje personaje : personajesRegistrados) {
-			if (personaje.equals(nombre)) {
-				resultado=personaje;	
-				break;
-			}		
-		}		
-		return resultado;	
+	protected void setJugadorSeleccionado2(Personaje p){
+        ctrlCombate.setJugador2(p);
 	}
 	
-	protected void mostrarAtributosJugadorSeleccionadoJ1(){
-	    j1=getJugadorSeleccionado(comboBoxJ1.getSelectedItem().toString());
-		
-	    textFieldDefensaJ1.setText(Integer.toString(j1.getDefensa()));
-		textFieldEnergiaJ1.setText(Integer.toString(j1.getEnergia()));
-		textFieldVidaJ1.setText(Integer.toString(j1.getVida()));
-		textFieldEvasionJ1.setText(Integer.toString(j1.getEvasion()));	
-		
+	protected void mostrarAtributosJugadorSeleccionadoJ1(Personaje p){
+	    textFieldDefensaJ1.setText(Integer.toString(p.getDefensa()));
+		textFieldEnergiaJ1.setText(Integer.toString(p.getEnergia()));
+		textFieldVidaJ1.setText(Integer.toString(p.getVida()));
+		textFieldEvasionJ1.setText(Integer.toString(p.getEvasion()));	
+	}
+
+	protected void mostrarAtributosJugadorSeleccionadoJ2(Personaje p){
+		textFieldDefensaJ2.setText(Integer.toString(p.getDefensa()));
+		textFieldEnergiaJ2.setText(Integer.toString(p.getEnergia()));
+		textFieldVidaJ2.setText(Integer.toString(p.getVida()));
+		textFieldEvasionJ2.setText(Integer.toString(p.getEvasion()));	
+	}
+
+	// falta validar que se hayan ingresado 2 jugadores que sean distintos
+	protected void nuevaPartida() {
+		ctrlCombate.nuevaPartida();
+		textFieldTurnoPersonaje.setText(ctrlCombate.getJugadorTurnoActual().getNombre());
 	}
 	
-	protected void mostrarAtributosJugadorSeleccionadoJ2(){
-	    j2=getJugadorSeleccionado(comboBoxJ2.getSelectedItem().toString());
-	    
-		textFieldDefensaJ2.setText(Integer.toString(j2.getDefensa()));
-		textFieldEnergiaJ2.setText(Integer.toString(j2.getEnergia()));
-		textFieldVidaJ2.setText(Integer.toString(j2.getVida()));
-		textFieldEvasionJ2.setText(Integer.toString(j2.getEvasion()));
-		
-	}
-	
+	//modificar
     //falta validar puntos ataque>energia
 	//falta validar que para atacar  primero se haya generado una nueva partida
 	protected void atacar(){
-		if (validarCampoPuntosAtaque()){
-		 ctrlCombate.ataque(j1,j2,Integer.parseInt((textFieldPuntosAtaque.getText())));	
-		 mostrarAtributosJugadorSeleccionadoJ1();
-		 mostrarAtributosJugadorSeleccionadoJ2();
-		 textFieldTurnoPersonaje.setText(Integer.toString(ctrlCombate.getTurno()));
-		} else {
-		 	notifyUser("Ingrese un numero entero mayor a 0 para el ataque");
-		}
-		textFieldPuntosAtaque.setText("");
+//		if (validarCampoPuntosAtaque()){
+//		 ctrlCombate.ataque(Integer.parseInt((textFieldPuntosAtaque.getText())));	
+////		 mostrarAtributosJugadorSeleccionadoJ1();
+////		 mostrarAtributosJugadorSeleccionadoJ2();
+//		// textFieldTurnoPersonaje.setText(Integer.toString(ctrlCombate.getTurno()));
+//		} else {
+//		 	notifyUser("Ingrese un numero entero mayor a 0 para el ataque");
+//		}
+//		textFieldPuntosAtaque.setText("");
+			
+			
 	}
 	
+	//no modificar
 	protected boolean validarCampoPuntosAtaque(){		
 		//valida que se haya ingresado los puntos, que sea numero entero y mayor a 0
 		if (       (textFieldPuntosAtaque.getText().length()>0) 
-				&& (textFieldPuntosAtaque.getText()).matches("[0-9]*") 
-				&& (Integer.parseInt(textFieldPuntosAtaque.getText())>0)) {
+				&& (textFieldPuntosAtaque.getText()).matches("[0-9]*") ) {
 			return true;
 		} else {
 			 return false;
@@ -381,29 +408,19 @@ public class UiCombate {
 	}
 	
 	//muestra mensaje
+	@SuppressWarnings("unused")
 	private void notifyUser(String mensaje) {
 		JOptionPane.showMessageDialog(this.frame, mensaje);
     }
 	
-	//genera el primer turno aleatorio y controla que los dos jugadores sean distintos
-	protected void nuevaPartida() {
-		ctrlCombate.setTurno(0);
-		
-		if(!j1.equals(j2)){
-			ctrlCombate.generarNuevoTurno();
-			textFieldTurnoPersonaje.setText(Integer.toString(ctrlCombate.getTurno()));
-		} else {
-			notifyUser("Ingrese dos personajes distintos para una nueva partida");
-		}	
-	}
-	
-	protected void defender() {
-		switch (ctrlCombate.getTurno()) {
-		case 0: notifyUser("Primero es necesario generar una nueva partida");break;
-		case 1:ctrlCombate.defensa(j1);mostrarAtributosJugadorSeleccionadoJ1();textFieldTurnoPersonaje.setText(Integer.toString(ctrlCombate.getTurno()));break;
-		case 2:ctrlCombate.defensa(j2);mostrarAtributosJugadorSeleccionadoJ1();textFieldTurnoPersonaje.setText(Integer.toString(ctrlCombate.getTurno()));break;
-		}
-	}
+	//ver mas tarde
+//	protected void defender() {
+//		switch (ctrlCombate.getTurno()) {
+//		case 0: notifyUser("Primero es necesario generar una nueva partida");break;
+//		case 1:ctrlCombate.defensa(j1);mostrarAtributosJugadorSeleccionadoJ1();textFieldTurnoPersonaje.setText(Integer.toString(ctrlCombate.getTurno()));break;
+//		case 2:ctrlCombate.defensa(j2);mostrarAtributosJugadorSeleccionadoJ1();textFieldTurnoPersonaje.setText(Integer.toString(ctrlCombate.getTurno()));break;
+//		}
+//	}
 	
 }
 

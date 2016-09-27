@@ -1,8 +1,6 @@
 package data;
 
 import java.sql.*;
-import java.util.ArrayList;
-
 import entidades.*;
 import utils.ApplicationException;
 
@@ -167,50 +165,8 @@ public class DataPersonaje {
 		}
 		
 		return p;
-}
-	public ArrayList<Personaje> GetPersonajesRegistrados(){
-	    
-		ArrayList<Personaje> lista= new ArrayList<Personaje>();
-		
-		PreparedStatement stmt=null;
-		ResultSet rs=null;
-		
-		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select * from personajes ");
-			rs= stmt.executeQuery();
-			while(rs!=null && rs.next()){
-				Personaje p=new Personaje();
-				p.setCodigo(rs.getInt("codigo"));
-				p.setVida(rs.getInt("vida"));
-				p.setNombre(rs.getString("nombre"));
-				p.setDefensa(rs.getInt("defensa"));
-				p.setEvasion(rs.getInt("Evasion"));
-				p.setPuntosTotales(rs.getInt("puntosTotales"));
-				p.setEnergia(rs.getInt("Energia"));
-				lista.add(p);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if(rs!=null)rs.close();
-				if(stmt!=null)stmt.close();
-				FactoryConexion.getInstancia().releaseConn();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}	
-		return lista;
 	}
+
+	
 	
 }

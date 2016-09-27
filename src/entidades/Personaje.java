@@ -10,7 +10,7 @@ public class Personaje {
 	private int evasion;
 	private int puntosTotales;
 	
-	
+	//es necesario?
 	public Personaje(){
 		this.vida=0;
 		this.defensa=0;
@@ -103,7 +103,36 @@ public class Personaje {
 			} else{
 				pAtacado.vida=0;
 			}
-		} 		
+		}
+	}
+
+	public void recibeAtaque(int puntosAtaque){
+		
+	}
+	
+	public void atacar(){
+		
+	}
+	
+	public boolean evadeAtaque(){
+	    boolean respuesta;
+		double numAleatorio=Math.random();
+		
+		if ((numAleatorio*100)>this.getEvasion()) {
+			respuesta=true;
+		} else {
+			respuesta=false;
+		}
+	    
+	    return respuesta;
+	}
+	
+	public int getVidaActual(){
+		return 0;	
+	}
+	
+	public int getEnergiaActual(){
+		return 0;
 	}
 	
 	public void defiende(int vidaOriginal, int energiaOriginal){
