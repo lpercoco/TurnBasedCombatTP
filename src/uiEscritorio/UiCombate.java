@@ -21,7 +21,6 @@ import javax.swing.JButton;
 public class UiCombate {
    
 	private JFrame frame;
-	private CtrlCombate ctrlCombate;
 	private JTextField textFieldVidaJ1;
 	private JTextField textFieldEnergiaJ1;
 	private JTextField textFieldDefensaJ1;
@@ -34,6 +33,12 @@ public class UiCombate {
 	private JTextField textFieldPuntosAtaque;
 	private JTextField textFieldNombreJ1;
 	private JTextField textFieldNombreJ2;
+	
+	private CtrlCombate ctrlCombate;
+	private Personaje jugador1;
+	private Personaje jugador2;
+	
+	
 
 	
 	/**
@@ -147,7 +152,7 @@ public class UiCombate {
 		JButton btnDefender = new JButton("DEFENDER");
 		btnDefender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//defender();
+				defender();
 			}
 		});
 		
@@ -159,7 +164,7 @@ public class UiCombate {
 		JButton btnBuscarJ1 = new JButton("BUSCAR");
 		btnBuscarJ1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				seleccionarJugador1();
+				buscarJugador1();
 			}
 		});
 		
@@ -171,7 +176,7 @@ public class UiCombate {
 		JButton btnBuscarJ2 = new JButton("BUSCAR");
 		btnBuscarJ2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				seleccionarJugador2();
+				buscarJugador2();
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -334,20 +339,23 @@ public class UiCombate {
 		frame.getContentPane().setLayout(groupLayout);
 	}
 		
+	protected void defender() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	//falta considerar  caso que no exista el jugador
-	//si no existe limpiar campos
-	protected void seleccionarJugador1() {
-		Personaje p=ctrlCombate.getByNombre(textFieldNombreJ1.getText());
-		mostrarAtributosJugadorSeleccionadoJ1(p);
-		setJugadorSeleccionado1(p);
+	//si no existe limpiar campo nombre
+	protected void buscarJugador1() {
+		jugador1=ctrlCombate.getByNombre(textFieldNombreJ1.getText());
+		mostrarAtributosJugadorSeleccionadoJ1(jugador1);
 	}
 	
 	//falta considerar  caso que no exista el jugador
-	//si no existe limpiar campos
-	protected void seleccionarJugador2() {
-		Personaje p=ctrlCombate.getByNombre(textFieldNombreJ2.getText());
-		mostrarAtributosJugadorSeleccionadoJ2(p);
-		setJugadorSeleccionado2(p);
+	//si no existe limpiar campos nombre
+	protected void buscarJugador2() {
+		jugador2=ctrlCombate.getByNombre(textFieldNombreJ2.getText());
+		mostrarAtributosJugadorSeleccionadoJ2(jugador2);
 	}
 
 
@@ -373,27 +381,16 @@ public class UiCombate {
 		textFieldEvasionJ2.setText(Integer.toString(p.getEvasion()));	
 	}
 
+	
 	// falta validar que se hayan ingresado 2 jugadores que sean distintos
 	protected void nuevaPartida() {
-		ctrlCombate.nuevaPartida();
-		textFieldTurnoPersonaje.setText(ctrlCombate.getJugadorTurnoActual().getNombre());
-	}
+		ctrlCombate.nuevaPartida(jugador1,jugador2);
+		mostrarTurnoPersonaje();	
+		}
 	
-	//modificar
-    //falta validar puntos ataque>energia
-	//falta validar que para atacar  primero se haya generado una nueva partida
+	
 	protected void atacar(){
-//		if (validarCampoPuntosAtaque()){
-//		 ctrlCombate.ataque(Integer.parseInt((textFieldPuntosAtaque.getText())));	
-////		 mostrarAtributosJugadorSeleccionadoJ1();
-////		 mostrarAtributosJugadorSeleccionadoJ2();
-//		// textFieldTurnoPersonaje.setText(Integer.toString(ctrlCombate.getTurno()));
-//		} else {
-//		 	notifyUser("Ingrese un numero entero mayor a 0 para el ataque");
-//		}
-//		textFieldPuntosAtaque.setText("");
-			
-			
+
 	}
 	
 	//no modificar
@@ -413,14 +410,16 @@ public class UiCombate {
 		JOptionPane.showMessageDialog(this.frame, mensaje);
     }
 	
-	//ver mas tarde
-//	protected void defender() {
-//		switch (ctrlCombate.getTurno()) {
-//		case 0: notifyUser("Primero es necesario generar una nueva partida");break;
-//		case 1:ctrlCombate.defensa(j1);mostrarAtributosJugadorSeleccionadoJ1();textFieldTurnoPersonaje.setText(Integer.toString(ctrlCombate.getTurno()));break;
-//		case 2:ctrlCombate.defensa(j2);mostrarAtributosJugadorSeleccionadoJ1();textFieldTurnoPersonaje.setText(Integer.toString(ctrlCombate.getTurno()));break;
-//		}
-//	}
+	protected void limpiarCampoPuntosAtaque(){
+		textFieldPuntosAtaque.setText("");
+	}
+	
+	protected void mostrarTurnoPersonaje(){
+		textFieldTurnoPersonaje.setText(ctrlCombate.getJugadorTurnoActual().getNombre());
+
+	}
+	
+
 	
 }
 

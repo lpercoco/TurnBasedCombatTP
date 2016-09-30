@@ -6,16 +6,12 @@ import entidades.Personaje;
 public class CtrlCombate {
 
 	private data.DataPersonaje dataP;
-	private Personaje jugador1,jugador2,jugadorTurnoActual;
-	@SuppressWarnings("unused")
-	private int energiaActualJ1,energiaActualJ2,vidaActualJ1,vidaActualJ2;
-	
+	private Personaje jugador1,jugador2,jugadorTurnoActual;	
 	public CtrlCombate(){
 		dataP=new DataPersonaje();
 	}
 	
 	
-//al finalizar partida, jugadorTurnoActual=null	
     public Personaje getJugadorTurnoActual() {
     	if (jugadorTurnoActual==null) {
 			generarPrimerTurnoAleatorio();
@@ -50,34 +46,10 @@ public class CtrlCombate {
     
     public void ataque(int puntosAtaque){
 
-//    	switch (turno) {
-//    	
-//		case 1:{
-//			j1.ataca(j2, puntosAtaque);
-//			if(j2.getVida()==0){
-//				j1.aumentaPuntosTotales();
-//				//fin partida
-//				j1.recuperacion();
-//				dataP.update(j1);
-//			}	
-//		break;}
-//		
-//		case 2:{
-//			j2.ataca(j1, puntosAtaque);
-//			if(j1.getVida()==0){
-//				j2.aumentaPuntosTotales();
-//				//fin partida
-//			}	
-//		break;}
-//		}
-//    	
-//    	generarNuevoTurno();
     }
+
     
     public void defensa(Personaje j){
-    	Personaje jOriginal = dataP.getByNombre(j);
-    	j.defiende(jOriginal.getVida(),jOriginal.getEnergia());
-    	generarNuevoTurno();
     }
 
 
@@ -90,6 +62,23 @@ public class CtrlCombate {
 		jugador2=p;
 	}
 	
+	
+
+	public Personaje getJugador1() {
+		return jugador1;
+	}
+
+
+	public Personaje getJugador2() {
+		return jugador2;
+	}
+
+
+	public void setJugadorTurnoActual(Personaje jugadorTurnoActual) {
+		this.jugadorTurnoActual = jugadorTurnoActual;
+	}
+
+
 	//se repite  codigo del otro controlador ¿?
 	//recibir objeto personaje o dejar como asi?
 	//crear metodo en data persona que reciba string?
@@ -100,13 +89,10 @@ public class CtrlCombate {
 		
 	}
 	
-	public void nuevaPartida(){
+	public void nuevaPartida(Personaje jugador1,Personaje jugador2){
 		jugadorTurnoActual=null;
-		energiaActualJ1=jugador1.getEnergia();
-		energiaActualJ2=jugador2.getEnergia();
-		vidaActualJ1=jugador1.getVida();
-		vidaActualJ2=jugador2.getVida();
-		
+		setJugador1(jugador1);
+		setJugador2(jugador2);		
 	}
 	
     
