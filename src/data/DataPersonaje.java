@@ -58,7 +58,7 @@ public class DataPersonaje {
 		
 		try {
 			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
-					"update personajes set vida=?,energia=?,evasion=?,defensa=?"+
+					"update personajes set vida=?,energia=?,evasion=?,defensa=?,puntosTotales=?"+
 					" where nombre=?");
 
 			stmt.setInt(1,p.getVida());
@@ -66,6 +66,7 @@ public class DataPersonaje {
 			stmt.setInt(3,p.getEvasion());
 			stmt.setInt(4,p.getDefensa());
 			stmt.setString(5,p.getNombre());
+			stmt.setInt(6,p.getPuntosTotales());
             stmt.executeUpdate();
 			/*
 		     

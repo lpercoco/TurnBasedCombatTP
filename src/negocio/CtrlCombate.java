@@ -2,6 +2,7 @@ package negocio;
 
 import data.DataPersonaje;
 import entidades.Personaje;
+import utils.ApplicationException;
 
 public class CtrlCombate {
 
@@ -57,10 +58,15 @@ public class CtrlCombate {
 	
 	//validar que el ataque sea en una partida y que los puntos de ataque sean menores
 	//a la energia del atacante
-    public void ataque(int puntosAtaque){
+    public void ataque(int puntosAtaque) throws ApplicationException{
     	
     	if(jugadorTurnoActual.equals(jugador1)){
     		//jugador1 ataca, jugador2 recibe ataque
+    		
+    		if(jugador1.getEnergiaActual()>puntosAtaque){
+    			throw new ApplicationException("Puntos ataque deben ser menor que energia actual del atacante");
+    		}
+    		
     		jugador1.ataca(puntosAtaque);
     		jugador2.recibeAtaque(puntosAtaque);
     		if(jugador2.getVidaActual()<=0){
@@ -69,6 +75,11 @@ public class CtrlCombate {
     		}
     	}else{
     		//jugador2 ataca, jugador1 recibe ataque
+    		
+    		if(jugador2.getEnergiaActual()>puntosAtaque){
+    			throw new ApplicationException("Puntos ataque deben ser menor que energia actual del atacante");
+    		}
+    		
     		jugador1.recibeAtaque(puntosAtaque);
     		jugador2.ataca(puntosAtaque);
     		if(jugador1.getVidaActual()<=0){
@@ -130,13 +141,18 @@ public class CtrlCombate {
 		
 	}
 	
-	public void nuevaPartida(Personaje jugador1,Personaje jugador2){
+	public void nuevaPartida(Personaje jugador1,Personaje jugador2) throws ApplicationException{
+		if(jugador1.equals(jugador2)){
+			throw new ApplicationException("Ingrese dos personajes diferentes");
+		}else{
+		
 		finCombate=false;
 		
 		setJugador1(jugador1);
 		setJugador2(jugador2);
 		
 		generarPrimerTurnoAleatorio();
+		}
 	}
 	
     

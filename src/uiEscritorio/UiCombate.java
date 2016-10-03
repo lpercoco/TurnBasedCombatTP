@@ -12,8 +12,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import entidades.Personaje;
 
 import negocio.*;
+import utils.ApplicationException;
+
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.nio.file.attribute.UserPrincipalLookupService;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 
@@ -383,22 +386,30 @@ public class UiCombate {
 
 	
 
-	//pasar validacion al controlador
 	protected void nuevaPartida() {
-		if(!jugador1.equals(jugador2)){
-			ctrlCombate.nuevaPartida(jugador1,jugador2);
-			mostrarTurnoPersonaje();	
-		} else{
-			notifyUser("ingrese dos jugadores distintos");
-			limpiarCamposNombres();
-		}
-		}
+			try {
+				ctrlCombate.nuevaPartida(jugador1,jugador2);
+				mostrarTurnoPersonaje();	
+			} catch (ApplicationException e) {
+				notifyUser("Ingrese dos personajes distintos");
+			}
+	}
+		
 	
 	
 	protected void atacar(){
-		ctrlCombate.ataque(Integer.parseInt(textFieldPuntosAtaque.getText()));
-		mostrarAtributosJugadorSeleccionadoJ1(jugador1);
-		mostrarAtributosJugadorSeleccionadoJ2(jugador2);
+		try {
+			ctrlCombate.ataque(Integer.parseInt(textFieldPuntosAtaque.getText()));
+			mostrarAtributosJugadorSeleccionadoJ1(jugador1);
+			mostrarAtributosJugadorSeleccionadoJ2(jugador2);
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			notifyUser("Ingrese una cantidad de puntos de ataque menor a la de energia disponible");
+			limpiarCampoPuntosAtaque();
+		}
+
 		if(!ctrlCombate.isFinCombate()){
 			mostrarTurnoPersonaje();
 		}else {

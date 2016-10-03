@@ -112,9 +112,9 @@ public class Personaje {
 		return  (nombre == this.getNombre());
 	}
 	
-	
+	//esta bien?
 	public boolean equals(Object p){
-		return ((p instanceof Personaje) && ((Personaje)p).getNombre()==this.getNombre() );
+		return ((p instanceof Personaje) && ((Personaje)p).getNombre().equals(this.getNombre()) );
 	}
 	
 		
@@ -154,7 +154,7 @@ public class Personaje {
 	
 	
 	public void aumentaPuntosTotales(){
-		this.puntosTotales=+PUNTOSPORPARTIDAGANADA;
+		puntosTotales=puntosTotales+PUNTOSPORPARTIDAGANADA;
 	}
 
 }
