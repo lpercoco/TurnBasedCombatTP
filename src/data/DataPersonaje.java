@@ -143,6 +143,7 @@ public class DataPersonaje {
 				p.setPuntosTotales(rs.getInt("puntosTotales"));
 				p.setEnergia(rs.getInt("Energia"));
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

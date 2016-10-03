@@ -25,7 +25,10 @@ public class Personaje {
 		this.defensa=0;
 		this.energia=0;
 		this.evasion=0;
-		this.puntosTotales=PUNTOSTOTALES_INICIALES; 
+		this.puntosTotales=PUNTOSTOTALES_INICIALES;
+		//?
+		this.usoEnergia=0;
+		this.daño=0;
 	}
 	
 	public int getCodigo() {
@@ -137,7 +140,18 @@ public class Personaje {
 	public int getVidaActual(){
 		return vida-daño;
 	}
-			
+	
+	public void recibeAtaque(int puntosAtaque){
+		if(!evadeAtaque()){
+		daño=daño+puntosAtaque;
+		}
+	}
+	
+	
+	public void ataca(int puntosAtaque){
+		usoEnergia=usoEnergia+puntosAtaque;
+	}
+	
 	
 	public void aumentaPuntosTotales(){
 		this.puntosTotales=+PUNTOSPORPARTIDAGANADA;

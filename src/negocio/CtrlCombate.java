@@ -6,30 +6,40 @@ import entidades.Personaje;
 public class CtrlCombate {
 
 	private data.DataPersonaje dataP;
-	private Personaje jugador1,jugador2,jugadorTurnoActual;	
+	private Personaje jugador1,jugador2,jugadorTurnoActual;
+	private boolean finCombate;
+	
+	
+	public boolean isFinCombate() {
+		return finCombate;
+	}
+
+
+	public void setFinCombate(boolean finCombate) {
+		this.finCombate = finCombate;
+	}
+
+
 	public CtrlCombate(){
 		dataP=new DataPersonaje();
 	}
 	
 	
     public Personaje getJugadorTurnoActual() {
-    	if (jugadorTurnoActual==null) {
-			generarPrimerTurnoAleatorio();
-		} else {
-			generarNuevoTurno();
-		}
 		return jugadorTurnoActual;
 	}
   
-    
-    
+        
     public void generarNuevoTurno(){
-    	    if (jugadorTurnoActual==jugador1) {
-				jugadorTurnoActual=jugador2;
-			} else {
-				jugadorTurnoActual=jugador1;
-			}
-        }
+
+    		if(jugador1.equals(jugadorTurnoActual)){
+    			jugadorTurnoActual=jugador2;
+    		}else{
+    			jugadorTurnoActual=jugador1;
+    		}
+    }
+    	
+    
     	
 	public void generarPrimerTurnoAleatorio() {
 		double numeroAleatorio;
@@ -44,12 +54,43 @@ public class CtrlCombate {
 		} while (numeroAleatorio==0.5);
 	}
     
+	
+	//validar que el ataque sea en una partida y que los puntos de ataque sean menores
+	//a la energia del atacante
     public void ataque(int puntosAtaque){
-
+    	
+    	if(jugadorTurnoActual.equals(jugador1)){
+    		//jugador1 ataca, jugador2 recibe ataque
+    		jugador1.ataca(puntosAtaque);
+    		jugador2.recibeAtaque(puntosAtaque);
+    		if(jugador2.getVidaActual()<=0){
+    			finCombate=true;
+    			combateGanado(jugador1);
+    		}
+    	}else{
+    		//jugador2 ataca, jugador1 recibe ataque
+    		jugador1.recibeAtaque(puntosAtaque);
+    		jugador2.ataca(puntosAtaque);
+    		if(jugador1.getVidaActual()<=0){
+    			finCombate=true;
+    			combateGanado(jugador2);
+    		}
+    	}
+    	
+    	if(!finCombate){
+    		generarNuevoTurno();
+    	}
+    	
     }
 
     
+    public void combateGanado(Personaje j){
+    	j.aumentaPuntosTotales();
+    	dataP.update(j);
+    }
+    
     public void defensa(Personaje j){
+    	
     }
 
 
@@ -90,9 +131,12 @@ public class CtrlCombate {
 	}
 	
 	public void nuevaPartida(Personaje jugador1,Personaje jugador2){
-		jugadorTurnoActual=null;
+		finCombate=false;
+		
 		setJugador1(jugador1);
-		setJugador2(jugador2);		
+		setJugador2(jugador2);
+		
+		generarPrimerTurnoAleatorio();
 	}
 	
     

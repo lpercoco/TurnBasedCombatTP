@@ -340,7 +340,6 @@ public class UiCombate {
 	}
 		
 	protected void defender() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -349,6 +348,7 @@ public class UiCombate {
 	protected void buscarJugador1() {
 		jugador1=ctrlCombate.getByNombre(textFieldNombreJ1.getText());
 		mostrarAtributosJugadorSeleccionadoJ1(jugador1);
+
 	}
 	
 	//falta considerar  caso que no exista el jugador
@@ -369,27 +369,41 @@ public class UiCombate {
 	
 	protected void mostrarAtributosJugadorSeleccionadoJ1(Personaje p){
 	    textFieldDefensaJ1.setText(Integer.toString(p.getDefensa()));
-		textFieldEnergiaJ1.setText(Integer.toString(p.getEnergia()));
-		textFieldVidaJ1.setText(Integer.toString(p.getVida()));
+		textFieldEnergiaJ1.setText(Integer.toString(p.getEnergiaActual()));
+		textFieldVidaJ1.setText(Integer.toString(p.getVidaActual()));
 		textFieldEvasionJ1.setText(Integer.toString(p.getEvasion()));	
 	}
 
 	protected void mostrarAtributosJugadorSeleccionadoJ2(Personaje p){
 		textFieldDefensaJ2.setText(Integer.toString(p.getDefensa()));
-		textFieldEnergiaJ2.setText(Integer.toString(p.getEnergia()));
-		textFieldVidaJ2.setText(Integer.toString(p.getVida()));
+		textFieldEnergiaJ2.setText(Integer.toString(p.getEnergiaActual()));
+		textFieldVidaJ2.setText(Integer.toString(p.getVidaActual()));
 		textFieldEvasionJ2.setText(Integer.toString(p.getEvasion()));	
 	}
 
 	
-	// falta validar que se hayan ingresado 2 jugadores que sean distintos
+
+	//pasar validacion al controlador
 	protected void nuevaPartida() {
-		ctrlCombate.nuevaPartida(jugador1,jugador2);
-		mostrarTurnoPersonaje();	
+		if(!jugador1.equals(jugador2)){
+			ctrlCombate.nuevaPartida(jugador1,jugador2);
+			mostrarTurnoPersonaje();	
+		} else{
+			notifyUser("ingrese dos jugadores distintos");
+			limpiarCamposNombres();
+		}
 		}
 	
 	
 	protected void atacar(){
+		ctrlCombate.ataque(Integer.parseInt(textFieldPuntosAtaque.getText()));
+		mostrarAtributosJugadorSeleccionadoJ1(jugador1);
+		mostrarAtributosJugadorSeleccionadoJ2(jugador2);
+		if(!ctrlCombate.isFinCombate()){
+			mostrarTurnoPersonaje();
+		}else {
+			notifyUser("partida finalizada");
+		}
 
 	}
 	
@@ -405,7 +419,6 @@ public class UiCombate {
 	}
 	
 	//muestra mensaje
-	@SuppressWarnings("unused")
 	private void notifyUser(String mensaje) {
 		JOptionPane.showMessageDialog(this.frame, mensaje);
     }
@@ -419,6 +432,10 @@ public class UiCombate {
 
 	}
 	
+	protected void limpiarCamposNombres(){
+		textFieldNombreJ1.setText("");
+		textFieldNombreJ2.setText("");
+	}
 
 	
 }
