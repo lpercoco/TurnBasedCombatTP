@@ -56,14 +56,16 @@ public class CtrlCombate {
 	}
     
 	
-	//validar que el ataque sea en una partida y que los puntos de ataque sean menores
-	//a la energia del atacante
     public void ataque(int puntosAtaque) throws ApplicationException{
+
+		if(jugador1==null || jugador2==null){
+			throw new ApplicationException("Primero ingrese lo personajes y luego genere una nueva partida");
+		}
     	
     	if(jugadorTurnoActual.equals(jugador1)){
     		//jugador1 ataca, jugador2 recibe ataque
     		
-    		if(jugador1.getEnergiaActual()>puntosAtaque){
+    		if(jugador1.getEnergiaActual()<puntosAtaque){
     			throw new ApplicationException("Puntos ataque deben ser menor que energia actual del atacante");
     		}
     		
@@ -76,7 +78,7 @@ public class CtrlCombate {
     	}else{
     		//jugador2 ataca, jugador1 recibe ataque
     		
-    		if(jugador2.getEnergiaActual()>puntosAtaque){
+    		if(jugador2.getEnergiaActual()<puntosAtaque){
     			throw new ApplicationException("Puntos ataque deben ser menor que energia actual del atacante");
     		}
     		
@@ -134,26 +136,39 @@ public class CtrlCombate {
 	//se repite  codigo del otro controlador ¿?
 	//recibir objeto personaje o dejar como asi?
 	//crear metodo en data persona que reciba string?
-	public Personaje getByNombre(String nombre){
+	//esta bien lanzada la exeption aca o en datap.getbynombre?
+	public Personaje getByNombre(String nombre) throws ApplicationException{
 		Personaje p = new Personaje();
+		Personaje respuesta = new Personaje();
 		p.setNombre(nombre);
-		return dataP.getByNombre(p);
+		respuesta=dataP.getByNombre(p);
+		if(respuesta==null) throw new ApplicationException();
+		return respuesta;
 		
 	}
 	
+	//se puede mejorar codigo?
 	public void nuevaPartida(Personaje jugador1,Personaje jugador2) throws ApplicationException{
-		if(jugador1.equals(jugador2)){
-			throw new ApplicationException("Ingrese dos personajes diferentes");
+			
+		if(jugador1==null || jugador2==null){
+			throw new ApplicationException("Ingrese personajes para jugar");
 		}else{
-		
-		finCombate=false;
-		
-		setJugador1(jugador1);
-		setJugador2(jugador2);
-		
-		generarPrimerTurnoAleatorio();
+			if(jugador1.equals(jugador2)){
+				throw new ApplicationException("Ingrese dos personajes diferentes");
+			}else{
+				
+//				  jugador1.setUsoEnergia(0);
+//				  jugador1.setDaño(0);
+//				  jugador2.setUsoEnergia(0);
+//				  jugador2.setDaño(0);
+				  
+			      setJugador1(jugador1);
+			      setJugador2(jugador2);
+		          finCombate=false;
+		          generarPrimerTurnoAleatorio();
+			}
 		}
 	}
-	
+			
     
 }

@@ -346,19 +346,26 @@ public class UiCombate {
 		
 	}
 
-	//falta considerar  caso que no exista el jugador
 	//si no existe limpiar campo nombre
 	protected void buscarJugador1() {
-		jugador1=ctrlCombate.getByNombre(textFieldNombreJ1.getText());
-		mostrarAtributosJugadorSeleccionadoJ1(jugador1);
+		try {
+			jugador1=ctrlCombate.getByNombre(textFieldNombreJ1.getText());
+			mostrarAtributosJugadorSeleccionadoJ1(jugador1);
+		} catch (ApplicationException e) {
+			notifyUser("Jugador no registrado");
+		}
 
 	}
 	
-	//falta considerar  caso que no exista el jugador
-	//si no existe limpiar campos nombre
 	protected void buscarJugador2() {
-		jugador2=ctrlCombate.getByNombre(textFieldNombreJ2.getText());
-		mostrarAtributosJugadorSeleccionadoJ2(jugador2);
+		try {
+			jugador2=ctrlCombate.getByNombre(textFieldNombreJ2.getText());
+			mostrarAtributosJugadorSeleccionadoJ2(jugador2);
+
+		} catch (ApplicationException e) {
+			notifyUser("Jugador no registrado");
+
+		}
 	}
 
 
@@ -385,49 +392,49 @@ public class UiCombate {
 	}
 
 	
-
+    //no usar variables jugador1 y jugador2?
 	protected void nuevaPartida() {
 			try {
 				ctrlCombate.nuevaPartida(jugador1,jugador2);
+				mostrarAtributosJugadorSeleccionadoJ1(jugador1);
+				mostrarAtributosJugadorSeleccionadoJ2(jugador2);
 				mostrarTurnoPersonaje();	
 			} catch (ApplicationException e) {
-				notifyUser("Ingrese dos personajes distintos");
+				notifyUser(e.getMessage());
+				limpiarTurnoPersonaje();
 			}
 	}
 		
 	
-	
+	//falta  caso puntos 0
+	//mostrar quien gano?
 	protected void atacar(){
 		try {
-			ctrlCombate.ataque(Integer.parseInt(textFieldPuntosAtaque.getText()));
-			mostrarAtributosJugadorSeleccionadoJ1(jugador1);
-			mostrarAtributosJugadorSeleccionadoJ2(jugador2);
+			ctrlCombate.ataque(Integer.parseUnsignedInt(textFieldPuntosAtaque.getText()));
+			
+			Personaje j1=ctrlCombate.getJugador1();
+			Personaje j2=ctrlCombate.getJugador2();
+			
+			mostrarAtributosJugadorSeleccionadoJ1(j1);
+			mostrarAtributosJugadorSeleccionadoJ2(j2);
+			
+			if(!ctrlCombate.isFinCombate()){
+				mostrarTurnoPersonaje();
+			}else {
+				notifyUser("partida finalizada");
+				limpiarTurnoPersonaje();
+			}
+			
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ApplicationException e) {
-			notifyUser("Ingrese una cantidad de puntos de ataque menor a la de energia disponible");
+			notifyUser("ingrese un numero entero positivo");
 			limpiarCampoPuntosAtaque();
+		} catch (ApplicationException e) {
+			notifyUser(e.getMessage());
 		}
-
-		if(!ctrlCombate.isFinCombate()){
-			mostrarTurnoPersonaje();
-		}else {
-			notifyUser("partida finalizada");
-		}
+		limpiarCampoPuntosAtaque();
 
 	}
 	
-	//no modificar
-	protected boolean validarCampoPuntosAtaque(){		
-		//valida que se haya ingresado los puntos, que sea numero entero y mayor a 0
-		if (       (textFieldPuntosAtaque.getText().length()>0) 
-				&& (textFieldPuntosAtaque.getText()).matches("[0-9]*") ) {
-			return true;
-		} else {
-			 return false;
-		}
-	}
 	
 	//muestra mensaje
 	private void notifyUser(String mensaje) {
@@ -442,6 +449,11 @@ public class UiCombate {
 		textFieldTurnoPersonaje.setText(ctrlCombate.getJugadorTurnoActual().getNombre());
 
 	}
+	
+	protected void limpiarTurnoPersonaje(){
+		textFieldTurnoPersonaje.setText("");
+	}
+	
 	
 	protected void limpiarCamposNombres(){
 		textFieldNombreJ1.setText("");

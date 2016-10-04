@@ -65,8 +65,10 @@ public class DataPersonaje {
 			stmt.setInt(2,p.getEnergia());
 			stmt.setInt(3,p.getEvasion());
 			stmt.setInt(4,p.getDefensa());
-			stmt.setString(5,p.getNombre());
-			stmt.setInt(6,p.getPuntosTotales());
+			stmt.setInt(5,p.getPuntosTotales());
+			stmt.setString(6,p.getNombre());
+
+
             stmt.executeUpdate();
 			/*
 		     
@@ -144,12 +146,11 @@ public class DataPersonaje {
 				p.setPuntosTotales(rs.getInt("puntosTotales"));
 				p.setEnergia(rs.getInt("Energia"));
 			}
-			
+			 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {
