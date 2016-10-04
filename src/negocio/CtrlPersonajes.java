@@ -10,6 +10,7 @@ public class CtrlPersonajes {
 		dataP=new DataPersonaje();
 	}
 	
+	//falta manejar caso de agregar  personaje con nombre repetido
 	public void add(Personaje p) {
 		dataP.add(p);		
 	}

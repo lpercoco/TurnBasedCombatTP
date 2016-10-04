@@ -58,21 +58,23 @@ public class DataPersonaje {
 		
 		try {
 			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
-					"update personajes set nombre=?,vida=?,energia=?,evasion=?,defensa=?"+
+					"update personajes set vida=?,energia=?,evasion=?,defensa=?,puntosTotales=?"+
 					" where nombre=?");
 
-			stmt.setString(1,p.getNombre());
-			stmt.setInt(2,p.getVida());
-			stmt.setInt(3,p.getEnergia());
-			stmt.setInt(4,p.getEvasion());
-			stmt.setInt(5,p.getDefensa());
+			stmt.setInt(1,p.getVida());
+			stmt.setInt(2,p.getEnergia());
+			stmt.setInt(3,p.getEvasion());
+			stmt.setInt(4,p.getDefensa());
+			stmt.setInt(5,p.getPuntosTotales());
 			stmt.setString(6,p.getNombre());
-			int filas=stmt.executeUpdate();
-			
-		
+
+
+            stmt.executeUpdate();
+			/*
+		     
 			if (filas==0){
 				throw DataException("Personaje inexistente");
-			}
+			}*/
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -144,11 +146,11 @@ public class DataPersonaje {
 				p.setPuntosTotales(rs.getInt("puntosTotales"));
 				p.setEnergia(rs.getInt("Energia"));
 			}
+			 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {
@@ -166,6 +168,8 @@ public class DataPersonaje {
 		}
 		
 		return p;
-}
+	}
+
+	
 	
 }
