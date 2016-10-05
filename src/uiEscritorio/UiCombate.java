@@ -343,6 +343,19 @@ public class UiCombate {
 	}
 		
 	protected void defender() {
+		try {
+			ctrlCombate.defensa();
+			
+			Personaje j1=ctrlCombate.getJugador1();
+			Personaje j2=ctrlCombate.getJugador2();
+			
+			mostrarAtributosJugadorSeleccionadoJ1(j1);
+			mostrarAtributosJugadorSeleccionadoJ2(j2);
+			
+			mostrarTurnoPersonaje();
+		} catch (ApplicationException e) {
+			notifyUser(e.getMessage());
+		}
 		
 	}
 

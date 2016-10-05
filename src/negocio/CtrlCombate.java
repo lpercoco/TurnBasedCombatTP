@@ -169,6 +169,33 @@ public class CtrlCombate {
 			}
 		}
 	}
+
+	
+	public void defensa() throws ApplicationException{
+
+//	    Si el jugador opta por defender no podrá atacar en dicho turno, pero a cambio de ello el personaje 
+//	    recuperará un porcentaje de la energía y de la vida que tenía al comenzar el juego.
+//	    Calculado de la siguiente forma:
+//	        energiaARecupearar = energiaOriginal * defensa / 100
+//	        vidaARecuperar = vidaOriginal * defensa / 250
+//	    Los puntos de vida o energia recueperados se sumaran pero no podrán superar 
+//	    los valores originales del comienzo de la partida.
+		
+		if(jugador1==null || jugador2==null){
+			throw new ApplicationException("Primero ingrese lo personajes y luego genere una nueva partida");
+		}else{
 			
+			if(jugadorTurnoActual.equals(jugador1)){
+				//jugador1 defiende
+				jugador1.defiende();
+				}else{
+					//jugador2 defiende
+					jugador2.defiende();
+					}
+			generarNuevoTurno();
+	    }
+
+	}
     
+	
 }
