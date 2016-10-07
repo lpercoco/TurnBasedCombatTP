@@ -23,7 +23,7 @@ import javax.swing.JButton;
 
 public class UiCombate {
    
-	private JFrame frame;
+	public JFrame frame;
 	private JTextField textFieldVidaJ1;
 	private JTextField textFieldEnergiaJ1;
 	private JTextField textFieldDefensaJ1;
@@ -74,7 +74,7 @@ public class UiCombate {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 851, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLabel lblJugad = new JLabel("Jugador 1");
 		
@@ -201,7 +201,7 @@ public class UiCombate {
 											.addComponent(lblNombre)
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addComponent(textFieldNombreJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addGroup(groupLayout.createSequentialGroup()
+										.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 											.addComponent(lblVida)
 											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 											.addComponent(textFieldVidaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
@@ -216,7 +216,7 @@ public class UiCombate {
 												.addComponent(textFieldTurnoPersonaje, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
 												.addGap(26))
 											.addGroup(groupLayout.createSequentialGroup()
-												.addComponent(btnAtacar, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+												.addComponent(btnAtacar, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
 												.addPreferredGap(ComponentPlacement.RELATED)
 												.addComponent(textFieldPuntosAtaque, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
 												.addGap(57)))
@@ -232,7 +232,7 @@ public class UiCombate {
 							.addComponent(lblEnergia)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(textFieldEnergiaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, 255, Short.MAX_VALUE)
 							.addComponent(btnDefender)
 							.addGap(130)))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -258,7 +258,7 @@ public class UiCombate {
 							.addComponent(lblNombre_1)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(textFieldNombreJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGap(6)
 							.addComponent(btnBuscarJ2)))
 					.addContainerGap())
 		);
@@ -275,7 +275,8 @@ public class UiCombate {
 								.addComponent(textFieldTurnoPersonaje, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblTurnoJugador)
 								.addComponent(lblNombre_1)
-								.addComponent(textFieldNombreJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(textFieldNombreJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnBuscarJ2)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblJugad)
@@ -285,24 +286,26 @@ public class UiCombate {
 								.addComponent(textFieldNombreJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnBuscarJ1))))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-							.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-									.addComponent(lblVida_1)
-									.addComponent(textFieldVidaJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.UNRELATED))
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(lblVida)
-								.addGap(18))
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(textFieldVidaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addGap(18))
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(btnAtacar)
-								.addGap(18)))
-						.addComponent(textFieldPuntosAtaque, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+											.addComponent(lblVida_1)
+											.addComponent(textFieldVidaJ2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.UNRELATED))
+									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(textFieldVidaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addGap(18))
+									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(btnAtacar)
+										.addGap(18)))
+								.addComponent(textFieldPuntosAtaque, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(6))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblVida)
+							.addGap(18)))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -323,7 +326,7 @@ public class UiCombate {
 									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 										.addComponent(lblDefensa)
 										.addComponent(textFieldDefensaJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-							.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblEvasion)
 								.addComponent(textFieldEvasionJ1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -334,10 +337,6 @@ public class UiCombate {
 							.addGap(14)
 							.addComponent(btnDefender)
 							.addContainerGap())))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(61, Short.MAX_VALUE)
-					.addComponent(btnBuscarJ2)
-					.addGap(185))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}
@@ -459,8 +458,6 @@ public class UiCombate {
 		textFieldNombreJ1.setText("");
 		textFieldNombreJ2.setText("");
 	}
-
-	
 }
 
 
