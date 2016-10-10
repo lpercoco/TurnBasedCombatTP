@@ -172,10 +172,10 @@ public class Personaje {
 			usoEnergia=0;
 		}
 		
-		if(daño-vidaArecuperar>0){
-			daño=daño-vidaArecuperar;
+		if(danio-vidaArecuperar>0){
+			danio=danio-vidaArecuperar;
 		}else{
-			daño=0;
+			danio=0;
 		}
 		
 	}
