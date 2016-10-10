@@ -157,4 +157,27 @@ public class Personaje {
 		puntosTotales=puntosTotales+PUNTOSPORPARTIDAGANADA;
 	}
 
+	public void defiende() {
+//    Los puntos de vida o energia recueperados se sumaran pero no podrán superar 
+//    los valores originales del comienzo de la partida.
+		int energiaArecuperar;
+		int vidaArecuperar;
+		
+		energiaArecuperar= energia * defensa / 100;
+		vidaArecuperar=vida * defensa /250;
+		
+		if(usoEnergia-energiaArecuperar>0){
+			usoEnergia=usoEnergia-energiaArecuperar;
+		}else{
+			usoEnergia=0;
+		}
+		
+		if(daño-vidaArecuperar>0){
+			daño=daño-vidaArecuperar;
+		}else{
+			daño=0;
+		}
+		
+	}
+
 }
