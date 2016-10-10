@@ -15,7 +15,7 @@ public class Personaje {
 	private int puntosTotales;
 	
 	private int usoEnergia;
-	private int daño;
+	private int danio;
 	
 	
 	//es necesario?
@@ -28,7 +28,7 @@ public class Personaje {
 		this.puntosTotales=PUNTOSTOTALES_INICIALES;
 		//?
 		this.usoEnergia=0;
-		this.daño=0;
+		this.danio=0;
 	}
 	
 	public int getCodigo() {
@@ -100,12 +100,12 @@ public class Personaje {
 		this.usoEnergia = usoEnergia;
 	}
 
-	public int getdaño() {
-		return daño;
+	public int getdanio() {
+		return danio;
 	}
 
-	public void setdaño(int daño) {
-		this.daño = daño;
+	public void setdanio(int danio) {
+		this.danio = danio;
 	}
 
 	public boolean equals(String nombre){
@@ -138,12 +138,12 @@ public class Personaje {
 	
 	
 	public int getVidaActual(){
-		return vida-daño;
+		return vida-danio;
 	}
 	
 	public void recibeAtaque(int puntosAtaque){
 		if(!evadeAtaque()){
-		daño=daño+puntosAtaque;
+		danio=danio+puntosAtaque;
 		}
 	}
 	
