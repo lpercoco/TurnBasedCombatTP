@@ -226,18 +226,23 @@ public class UiPersonajes {
 	
 	//se puede mejorar validacion de puntos asignados?
 	//cartel modificacion exitosa?
-	//falta manejar caso  de personaje inexistente
 	protected void modificar() {
 		Personaje p = new Personaje();
 		if(datosValidos()){
-			p=MapearDeFormulario();
-			if(p.validarPuntosAsignados()){
-		    ctrlPersonajes.update(p);
-			limpiarCampos();
-			} 
-			else {
+			p=ctrlPersonajes.getByNombre(MapearDeFormulario());
+			if(p != null){
+				p=MapearDeFormulario();
+				if(p.validarPuntosAsignados()){
+					ctrlPersonajes.update(p);
+					limpiarCampos();
+				} 
+				else {
 			     notifyUser("Tenga en cuenta las siguientes reglas\nLa suma de los puntos asignados no puede superar los puntos totales\nTope puntos defesa: 20\nTope puntos evasion: 80");
-			}
+				}
+			}else{
+			     notifyUser("Personaje Inexistente");
+			     limpiarCampos();
+				}
 		}
 	}
 		
@@ -307,22 +312,27 @@ public class UiPersonajes {
 		JOptionPane.showMessageDialog(this.frame, mensaje);
     }
 
-	//falta manejar caso personaje ya existente con ese nombre
 	//se puede mejorar  validacion puntos asignados? mensaje especifico para cada caso?
 	//cartel alta personaje exitosa?
 	protected void agregar() {
 		Personaje p=new Personaje();
-		
 		if(datosValidos()){
-		p=MapearDeFormulario();
-		if(p.validarPuntosAsignados()){
-		   ctrlPersonajes.add(p);
-		   limpiarCampos();
-		   }else{
-			     notifyUser("Tenga en cuenta las siguientes reglas\nLa suma de los puntos asignados no puede superar los puntos totales\nTope puntos defesa: 20\nTope puntos evasion: 80");
-		   }
+		p=ctrlPersonajes.getByNombre(MapearDeFormulario());
+		if(p == null){
+			p=MapearDeFormulario();
+			if(p.validarPuntosAsignados()){
+			   ctrlPersonajes.add(p);
+			   limpiarCampos();
+			   }else{
+				     notifyUser("Tenga en cuenta las siguientes reglas\nLa suma de los puntos asignados no puede superar los puntos totales\nTope puntos defesa: 20\nTope puntos evasion: 80");
+			   }
+		}else{
+		     notifyUser("Ya existe un personaje con ese nombre");
+		     limpiarCampos();
+	   }
 		}
 	}
+	
 
 	// busca personaje por el nombre y lo muestra en el frame
 	protected void buscar() {
@@ -332,12 +342,21 @@ public class UiPersonajes {
 		else notifyUser("Personaje no encontrado");
 	}
 
-	//falta manejar "eliminar un personaje que no esta registrado"
 	protected void eliminar() {
-		ctrlPersonajes.delete(MapearDeFormulario());
-		limpiarCampos();
+		Personaje p=new Personaje();
+		p=ctrlPersonajes.getByNombre(MapearDeFormulario());
+		if(p != null){
+			ctrlPersonajes.delete(MapearDeFormulario());
+			limpiarCampos();
+		}else{
+		     notifyUser("No existe un personaje con ese nombre registrado");
+		     limpiarCampos();
+	   }
+		}
+		
+		
 	}
 	
-}
+
         
 	
