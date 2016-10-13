@@ -349,9 +349,14 @@ public class UiPersonajes {
 	// busca personaje por el nombre y lo muestra en el frame
 	protected void buscar() {
 		Personaje p=new Personaje();
-		p=ctrlPersonajes.getByNombre(MapearDeFormulario());
-		if(p!=null)MapearAformulario(p);
-		else notifyUser("Personaje no encontrado");
+		//p=ctrlPersonajes.getByNombre(MapearDeFormulario());
+		try {
+			p=(Personaje) ctrlPersonajes.buscar(MapearDeFormulario());
+			MapearAformulario(p);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			notifyUser(e.getMessage());
+		}
 	}
 
 	protected void eliminar() {

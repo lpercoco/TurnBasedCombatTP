@@ -31,11 +31,7 @@ public class CtrlPersonajes {
 			}
 	}
 	
-	public Personaje getByNombre(Personaje per){
-		Personaje p = new Personaje();
-		p=dataP.getByNombre(per);
-		return p;
-	}
+
 	
 	public void delete(Personaje p)throws ApplicationException{
 		per = dataP.getByNombre(p);
@@ -44,6 +40,15 @@ public class CtrlPersonajes {
 		else{
 			throw new ApplicationException("Personaje inexistente");
 		}
+		
+	}
+
+	public Personaje buscar(Personaje p)throws ApplicationException{
+		per = dataP.getByNombre(p);
+		if(per==null){
+			throw new ApplicationException("Personaje inexistente");
+			}
+		return (Personaje) per;
 		
 	}
 }
