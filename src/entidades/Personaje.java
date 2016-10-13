@@ -1,5 +1,7 @@
 package entidades;
 
+import utils.ApplicationException;
+
 public class Personaje {
 	static int PUNTOSTOTALES_INICIALES=200;
 	static int PUNTOSEVASION_MAXIMOS=80;
@@ -75,20 +77,12 @@ public class Personaje {
 	}
 
 
-    //se puede mejorar?
-	public boolean validarPuntosAsignados() {
-		boolean rta;
+	public void validarPuntosAsignados() throws ApplicationException{
 		int aux;
-		
 		aux=defensa+vida+energia+evasion;
-		
-		if (aux<=puntosTotales && evasion<=PUNTOSEVASION_MAXIMOS && defensa<=PUNTOSEVASION_MAXIMOS) {
-			rta=true;
-		} else {
-			rta=false;
-
+		if (aux>puntosTotales || evasion>PUNTOSEVASION_MAXIMOS || defensa>PUNTOSEVASION_MAXIMOS) {
+			throw new ApplicationException("Tenga en cuenta las siguientes reglas\nLa suma de los puntos asignados no puede superar los puntos totales\nTope puntos defesa: 20\nTope puntos evasion: 80");
 		}
-		return rta;
 	}
 	
 
