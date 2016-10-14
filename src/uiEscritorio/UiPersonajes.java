@@ -12,6 +12,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import entidades.Personaje;
 import negocio.CtrlPersonajes;
+import utils.ApplicationException;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -224,22 +226,33 @@ public class UiPersonajes {
 		
 	}
 	
-	//se puede mejorar validacion de puntos asignados?
 	//cartel modificacion exitosa?
-	//falta manejar caso  de personaje inexistente
 	protected void modificar() {
 		Personaje p = new Personaje();
-		if(datosValidos()){
-			p=MapearDeFormulario();
-			if(p.validarPuntosAsignados()){
-		    ctrlPersonajes.update(p);
-			limpiarCampos();
-			} 
-			else {
-			     notifyUser("Tenga en cuenta las siguientes reglas\nLa suma de los puntos asignados no puede superar los puntos totales\nTope puntos defesa: 20\nTope puntos evasion: 80");
+		p=MapearDeFormulario();
+		try {
+			datosValidos();
+			try {
+				p.validarPuntosAsignados();
+				try {
+					ctrlPersonajes.update(p);
+					limpiarCampos();
+				}catch (ApplicationException e) {
+					// TODO Auto-generated catch block
+					notifyUser(e.getMessage());
+				}
+			} catch (ApplicationException e1) {
+				// TODO Auto-generated catch block
+				notifyUser(e1.getMessage());
 			}
-		}
-	}
+		} catch (ApplicationException e1) {
+			// TODO Auto-generated catch block
+			notifyUser(e1.getMessage());
+		}		
+	} 
+			
+	
+
 		
 	//sin el if 
 	//error Exception in thread "AWT-EventQueue-0" java.lang.NumberFormatException:
@@ -281,25 +294,22 @@ public class UiPersonajes {
 			
 	
 	//valida que los todos los campos esten completos y que se ingresen numeros enteros
-	public boolean datosValidos(){
-		boolean valido=true;
+	public void datosValidos() throws ApplicationException{
 		if(textNombre.getText().trim().length()==0
 		   ||textDefensa.getText().trim().length()==0	
 		   ||textEnergia.getText().trim().length()==0
 		   ||textVida.getText().trim().length()==0
 		   ||textEvasion.getText().trim().length()==0){
-			valido=false;
-			notifyUser("Complete los campos faltantes");
+			if((!textDefensa.getText().matches("[0-9]*")
+					|| !textEnergia.getText().matches("[0-9]*")
+					|| !textVida.getText().matches("[0-9]*")
+					|| !textEvasion.getText().matches("[0-9]*"))){
+						throw new ApplicationException("Reingrese los puntos asignados, solamente se aceptan numeros enteros");
+					}
+			throw new ApplicationException("Complete los campos faltantes");
 		}
 
-		if(valido && (!textDefensa.getText().matches("[0-9]*")
-		   || !textEnergia.getText().matches("[0-9]*")
-		   || !textVida.getText().matches("[0-9]*")
-		   || !textEvasion.getText().matches("[0-9]*"))){
-			valido=false;
-			notifyUser("Reingrese los puntos asignados, solamente se aceptan numeros enteros");
-		}
-		return valido;
+		
 	}
 	
 	//imprime mensaje
@@ -307,37 +317,59 @@ public class UiPersonajes {
 		JOptionPane.showMessageDialog(this.frame, mensaje);
     }
 
-	//falta manejar caso personaje ya existente con ese nombre
-	//se puede mejorar  validacion puntos asignados? mensaje especifico para cada caso?
 	//cartel alta personaje exitosa?
 	protected void agregar() {
 		Personaje p=new Personaje();
-		
-		if(datosValidos()){
-		p=MapearDeFormulario();
-		if(p.validarPuntosAsignados()){
-		   ctrlPersonajes.add(p);
-		   limpiarCampos();
-		   }else{
-			     notifyUser("Tenga en cuenta las siguientes reglas\nLa suma de los puntos asignados no puede superar los puntos totales\nTope puntos defesa: 20\nTope puntos evasion: 80");
-		   }
+		try {
+			datosValidos();
+			p=MapearDeFormulario();
+			try {
+				p.validarPuntosAsignados();
+				try {
+					ctrlPersonajes.add(p);
+					limpiarCampos();
+				} catch (ApplicationException e) {
+					// TODO Auto-generated catch block
+					notifyUser(e.getMessage());
+				}	
+			} catch (ApplicationException e2) {
+				// TODO Auto-generated catch block
+				notifyUser(e2.getMessage());
+			}
+		} catch (ApplicationException e1) {
+			// TODO Auto-generated catch block
+			notifyUser(e1.getMessage());
 		}
+		
+		
 	}
+
+	
 
 	// busca personaje por el nombre y lo muestra en el frame
 	protected void buscar() {
 		Personaje p=new Personaje();
-		p=ctrlPersonajes.getByNombre(MapearDeFormulario());
-		if(p!=null)MapearAformulario(p);
-		else notifyUser("Personaje no encontrado");
+		try {
+			p=(Personaje) ctrlPersonajes.buscar(MapearDeFormulario());
+			MapearAformulario(p);
+		} catch (ApplicationException e) {
+			notifyUser(e.getMessage());
+		}
 	}
 
-	//falta manejar "eliminar un personaje que no esta registrado"
 	protected void eliminar() {
-		ctrlPersonajes.delete(MapearDeFormulario());
-		limpiarCampos();
+		
+		try {
+			ctrlPersonajes.delete(MapearDeFormulario());
+			limpiarCampos();
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			notifyUser(e.getMessage());
+		}
+		}
+	
 	}
 	
-}
+
         
 	
