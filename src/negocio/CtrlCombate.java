@@ -132,11 +132,6 @@ public class CtrlCombate {
 		this.jugadorTurnoActual = jugadorTurnoActual;
 	}
 
-
-	//se repite  codigo del otro controlador ¿?
-	//recibir objeto personaje o dejar como asi?
-	//crear metodo en data persona que reciba string?
-	//esta bien lanzada la exeption aca o en datap.getbynombre?
 	public Personaje getByNombre(String nombre) throws ApplicationException{
 		Personaje p = new Personaje();
 		Personaje respuesta = new Personaje();
@@ -147,7 +142,6 @@ public class CtrlCombate {
 		
 	}
 	
-	//se puede mejorar codigo?
 	public void nuevaPartida(Personaje jugador1,Personaje jugador2) throws ApplicationException{
 			
 		if(jugador1==null || jugador2==null){
@@ -156,12 +150,7 @@ public class CtrlCombate {
 			if(jugador1.equals(jugador2)){
 				throw new ApplicationException("Ingrese dos personajes diferentes");
 			}else{
-				
-//				  jugador1.setUsoEnergia(0);
-//				  jugador1.setDaño(0);
-//				  jugador2.setUsoEnergia(0);
-//				  jugador2.setDaño(0);
-				  
+								  
 			      setJugador1(jugador1);
 			      setJugador2(jugador2);
 		          finCombate=false;
@@ -172,14 +161,6 @@ public class CtrlCombate {
 
 	
 	public void defensa() throws ApplicationException{
-
-//	    Si el jugador opta por defender no podrá atacar en dicho turno, pero a cambio de ello el personaje 
-//	    recuperará un porcentaje de la energía y de la vida que tenía al comenzar el juego.
-//	    Calculado de la siguiente forma:
-//	        energiaARecupearar = energiaOriginal * defensa / 100
-//	        vidaARecuperar = vidaOriginal * defensa / 250
-//	    Los puntos de vida o energia recueperados se sumaran pero no podrán superar 
-//	    los valores originales del comienzo de la partida.
 		
 		if(jugador1==null || jugador2==null){
 			throw new ApplicationException("Primero ingrese lo personajes y luego genere una nueva partida");

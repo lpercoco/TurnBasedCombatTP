@@ -16,8 +16,6 @@ public class DataPersonaje {
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
 					"insert into personajes(nombre,vida,energia,evasion,defensa)"+
 					" values(?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
-			// PreparedStatement.RETURN_GENERATED_KEYS to be able to retrieve id generated on the db
-			// by the autoincrement column. Otherwise don't use it
 						
 			stmt.setString(1,p.getNombre());
 			stmt.setInt(2,p.getVida());
@@ -26,17 +24,14 @@ public class DataPersonaje {
 			stmt.setInt(5,p.getDefensa());
 			stmt.execute();
 			
-			//after executing the insert use the following lines to retrieve the id
 			rs=stmt.getGeneratedKeys();
 			if(rs!=null && rs.next()){
 				p.setCodigo(rs.getInt(1));
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			try {
@@ -44,10 +39,8 @@ public class DataPersonaje {
 				if(stmt!=null)stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -67,20 +60,11 @@ public class DataPersonaje {
 			stmt.setInt(4,p.getDefensa());
 			stmt.setInt(5,p.getPuntosTotales());
 			stmt.setString(6,p.getNombre());
-
-
             stmt.executeUpdate();
-			/*
-		     
-			if (filas==0){
-				throw DataException("Personaje inexistente");
-			}*/
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {
@@ -88,10 +72,8 @@ public class DataPersonaje {
 				if(stmt!=null)stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -105,20 +87,16 @@ public class DataPersonaje {
 			stmt.setString(1, p.getNombre());
 			stmt.execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				if(stmt!=null)stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -148,7 +126,6 @@ public class DataPersonaje {
 			}
 			 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ApplicationException e) {
 			e.printStackTrace();
@@ -159,10 +136,8 @@ public class DataPersonaje {
 				if(stmt!=null)stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

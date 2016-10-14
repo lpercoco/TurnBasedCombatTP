@@ -225,8 +225,7 @@ public class UiPersonajes {
 		frame.getContentPane().setLayout(groupLayout);
 		
 	}
-	
-	//cartel modificacion exitosa?
+
 	protected void modificar() {
 		Personaje p = new Personaje();
 		p=MapearDeFormulario();
@@ -238,27 +237,17 @@ public class UiPersonajes {
 					ctrlPersonajes.update(p);
 					limpiarCampos();
 				}catch (ApplicationException e) {
-					// TODO Auto-generated catch block
 					notifyUser(e.getMessage());
 				}
 			} catch (ApplicationException e1) {
-				// TODO Auto-generated catch block
 				notifyUser(e1.getMessage());
 			}
 		} catch (ApplicationException e1) {
-			// TODO Auto-generated catch block
 			notifyUser(e1.getMessage());
 		}		
 	} 
 			
-	
 
-		
-	//sin el if 
-	//error Exception in thread "AWT-EventQueue-0" java.lang.NumberFormatException:
-	//For input string: "" 
-	//se puede mejorar?
-	
 	public Personaje MapearDeFormulario(){
 		Personaje p = new Personaje();
 		p.setNombre(textNombre.getText());
@@ -280,8 +269,7 @@ public class UiPersonajes {
 		textPuntosTotales.setText(Integer.toString(p.getPuntosTotales()));
 		textPuntosSinAsignar.setText(Integer.toString(p.getPuntosTotales()-(p.getDefensa()+p.getEnergia()+p.getEvasion()+p.getVida())));
 	}
-	
-     //"limpia" todos los campos del frame
+
 	public void limpiarCampos(){
 		textNombre.setText("");
 		textDefensa.setText("");
@@ -293,7 +281,6 @@ public class UiPersonajes {
 	}
 			
 	
-	//valida que los todos los campos esten completos y que se ingresen numeros enteros
 	public void datosValidos() throws ApplicationException{
 		if(textNombre.getText().trim().length()==0
 		   ||textDefensa.getText().trim().length()==0	
@@ -312,12 +299,10 @@ public class UiPersonajes {
 		
 	}
 	
-	//imprime mensaje
 	private void notifyUser(String mensaje) {
 		JOptionPane.showMessageDialog(this.frame, mensaje);
     }
 
-	//cartel alta personaje exitosa?
 	protected void agregar() {
 		Personaje p=new Personaje();
 		try {
@@ -329,15 +314,12 @@ public class UiPersonajes {
 					ctrlPersonajes.add(p);
 					limpiarCampos();
 				} catch (ApplicationException e) {
-					// TODO Auto-generated catch block
 					notifyUser(e.getMessage());
 				}	
 			} catch (ApplicationException e2) {
-				// TODO Auto-generated catch block
 				notifyUser(e2.getMessage());
 			}
 		} catch (ApplicationException e1) {
-			// TODO Auto-generated catch block
 			notifyUser(e1.getMessage());
 		}
 		
@@ -345,8 +327,6 @@ public class UiPersonajes {
 	}
 
 	
-
-	// busca personaje por el nombre y lo muestra en el frame
 	protected void buscar() {
 		Personaje p=new Personaje();
 		try {
@@ -363,7 +343,6 @@ public class UiPersonajes {
 			ctrlPersonajes.delete(MapearDeFormulario());
 			limpiarCampos();
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
 			notifyUser(e.getMessage());
 		}
 		}

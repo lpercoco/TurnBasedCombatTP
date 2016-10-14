@@ -19,16 +19,13 @@ public class Personaje {
 	private int usoEnergia;
 	private int danio;
 	
-	
-	//es necesario?
-	//en base de datos esta igual
+
 	public Personaje(){
 		this.vida=0;
 		this.defensa=0;
 		this.energia=0;
 		this.evasion=0;
 		this.puntosTotales=PUNTOSTOTALES_INICIALES;
-		//?
 		this.usoEnergia=0;
 		this.danio=0;
 	}
@@ -105,8 +102,7 @@ public class Personaje {
 	public boolean equals(String nombre){
 		return  (nombre == this.getNombre());
 	}
-	
-	//esta bien?
+
 	public boolean equals(Object p){
 		return ((p instanceof Personaje) && ((Personaje)p).getNombre().equals(this.getNombre()) );
 	}
@@ -152,8 +148,6 @@ public class Personaje {
 	}
 
 	public void defiende() {
-//    Los puntos de vida o energia recueperados se sumaran pero no podrán superar 
-//    los valores originales del comienzo de la partida.
 		int energiaArecuperar;
 		int vidaArecuperar;
 		

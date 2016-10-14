@@ -357,7 +357,6 @@ public class UiCombate {
 		
 	}
 
-	//si no existe limpiar campo nombre
 	protected void buscarJugador1() {
 		try {
 			jugador1=ctrlCombate.getByNombre(textFieldNombreJ1.getText());
@@ -402,8 +401,6 @@ public class UiCombate {
 		textFieldEvasionJ2.setText(Integer.toString(p.getEvasion()));	
 	}
 
-	
-    //no usar variables jugador1 y jugador2?
 	protected void nuevaPartida() {
 			try {
 				ctrlCombate.nuevaPartida(jugador1,jugador2);
@@ -417,8 +414,7 @@ public class UiCombate {
 	}
 		
 	
-	//falta  caso puntos 0
-	//mostrar quien gano?
+
 	protected void atacar(){
 		try {
 			ctrlCombate.ataque(Integer.parseUnsignedInt(textFieldPuntosAtaque.getText()));
@@ -447,7 +443,6 @@ public class UiCombate {
 	}
 	
 	
-	//muestra mensaje
 	private void notifyUser(String mensaje) {
 		JOptionPane.showMessageDialog(this.frame, mensaje);
     }
